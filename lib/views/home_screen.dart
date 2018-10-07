@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/blocProviders/HomeScreenProvider.dart';
-import 'package:useful_app/blocs/HomeScreenBloc.dart';
+import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
+import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -17,8 +17,8 @@ class _HomeScreenState extends State<StatefulWidget> {
     return new Scaffold(
       body: new StreamBuilder<int>(
           stream: homeScreenBloc.pageId,
-          initialData: 0,
           builder: (context, snapshot) {
+            print(snapshot.data);
             return new Container(
               padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
               color: HomeScreenValues.getBackgroundColor(snapshot.data),
@@ -31,18 +31,12 @@ class _HomeScreenState extends State<StatefulWidget> {
                     height: HomeScreenValues.mainImageDims,
                     fit: BoxFit.fitHeight,
                   ),
-                  new StreamBuilder<int>(
-                      stream: homeScreenBloc.healthLvl,
-                      initialData: 1,
-                      builder: (context, snapshot) {
-                        return new RaisedButton(
-                            child: new Text("${snapshot.data}"),
-                            onPressed: () {
-                              homeScreenBloc.pageIdSink.add(snapshot.data + 1);
-                            }
-                        );
+                  new RaisedButton(
+                      child: new Text("${snapshot.data}"),
+                      onPressed: () {
+                        homeScreenBloc.pageIdSink.add(snapshot.data + 1);
                       }
-                      )
+                      ),
                 ],
               ),
             );

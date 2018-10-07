@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:useful_app/blocs/HomeScreenBloc.dart';
+import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 
 class HomeScreenProvider extends InheritedWidget {
   final HomeScreenBloc homeScreenBloc;

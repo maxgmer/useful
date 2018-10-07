@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/blocProviders/HomeScreenProvider.dart';
+import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
 import 'package:useful_app/views/home_screen.dart';
 
 void main() => runApp(new MyApp());
