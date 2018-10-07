@@ -17,11 +17,10 @@ class _HomeScreenState extends State<StatefulWidget> {
     return new Scaffold(
       body: new StreamBuilder<int>(
           stream: homeScreenBloc.pageId,
-          builder: (context, snapshot) {
-            print(snapshot.data);
+          builder: (context, snapshotPageId) {
             return new Container(
               padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
-              color: HomeScreenValues.getBackgroundColor(snapshot.data),
+              color: HomeScreenValues.getBackgroundColor(snapshotPageId.data),
               constraints: BoxConstraints.expand(),
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,12 +30,14 @@ class _HomeScreenState extends State<StatefulWidget> {
                     height: HomeScreenValues.mainImageDims,
                     fit: BoxFit.fitHeight,
                   ),
-                  new RaisedButton(
-                      child: new Text("${snapshot.data}"),
-                      onPressed: () {
-                        homeScreenBloc.pageIdSink.add(snapshot.data + 1);
+                  new StreamBuilder<String>(
+                      stream: homeScreenBloc.getLvlStreamForPage(snapshotPageId.data),
+                      builder: (context, snapshotLvlHeader) {
+                        return new Text(
+                            snapshotLvlHeader.data == null ? snapshotLvlHeader.data : "Loading.."
+                        );
                       }
-                      ),
+                  ),
                 ],
               ),
             );

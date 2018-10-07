@@ -10,7 +10,6 @@ class HomeScreenBloc {
 
   HomeScreenBloc() {
     _initHomeScreenWidgetsWithInitialValues();
-    _pageIdController.stream.listen((pageId) => _wrapPageId(pageId));
   }
 
   //read only for view, so we expose only Streams from these controllers
@@ -19,17 +18,26 @@ class HomeScreenBloc {
   final BehaviorSubject<int> _loveLvlController = new BehaviorSubject<int>();
   final BehaviorSubject<int> _happinessLvlController = new BehaviorSubject<int>();
 
-  Stream<int> get healthLvl => _healthLvlController.stream;
-  Stream<int> get wealthLvl => _wealthLvlController.stream;
-  Stream<int> get loveLvl => _loveLvlController.stream;
-  Stream<int> get happinessLvl => _happinessLvlController.stream;
+  Stream<String> get healthLvl => _formattedHealthLvlStream();
+  Stream<String> get wealthLvl => _formattedWealthLvlStream();
+  Stream<String> get loveLvl => _formattedLoveLvlStream();
+  Stream<String> get happinessLvl => _formattedHappinessLvlStream();
 
 
 
   final BehaviorSubject<int> _pageIdController = new BehaviorSubject<int>();
 
-  Stream<int> get pageId => _pageIdController.stream;
+  Stream<int> get pageId => _wrappedPageIdStream();
   Sink<int> get pageIdSink => _pageIdController.sink;
+
+  Stream<String> getLvlStreamForPage(int currentPageId) {
+    switch(currentPageId) {
+      case 0: return healthLvl;
+      case 1: return wealthLvl;
+      case 2: return loveLvl;
+      case 3: return happinessLvl;
+    }
+  }
 
   void dispose() {
     _healthLvlController.close();
@@ -54,16 +62,32 @@ class HomeScreenBloc {
   }
 
   //Does not let user change to non-existent page
-  _wrapPageId(int pageId) {
-    if (pageId > HomeScreenValues.MAX_PAGE_ID) {
-      pageId = 0;
-      pageIdSink.add(pageId);
-    }
-    if (pageId < 0) {
-      pageId = HomeScreenValues.MAX_PAGE_ID;
-      pageIdSink.add(pageId);
-    }
-    _sessionData.pageId = pageId;
+
+  Stream<String> _formattedHealthLvlStream() {
+    return _healthLvlController.stream.map((lvlNum) => "Health lvl: $lvlNum");
+  }
+  Stream<String> _formattedWealthLvlStream() {
+    return _wealthLvlController.stream.map((lvlNum) => "Wealth lvl: $lvlNum");
+  }
+  Stream<String> _formattedLoveLvlStream() {
+    return _loveLvlController.stream.map((lvlNum) => "Love lvl: $lvlNum");
+  }
+  Stream<String> _formattedHappinessLvlStream() {
+    return _happinessLvlController.stream.map((lvlNum) => "Happiness lvl: $lvlNum");
+  }
+
+  Stream<int> _wrappedPageIdStream() {
+    return _pageIdController.stream.map((pageId) {
+      if (pageId > HomeScreenValues.MAX_PAGE_ID) {
+        pageId = 0;
+        pageIdSink.add(pageId);
+      }
+      if (pageId < 0) {
+        pageId = HomeScreenValues.MAX_PAGE_ID;
+        pageIdSink.add(pageId);
+      }
+      _sessionData.pageId = pageId;
+    });
   }
 }
 
