@@ -14,27 +14,35 @@ class _HomeScreenState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     final homeScreenBloc = HomeScreenProvider.getBloc(context);
-    return new Scaffold(
-      body: new StreamBuilder<int>(
+    return Scaffold(
+      body: StreamBuilder<int>(
           stream: homeScreenBloc.pageId,
           builder: (context, snapshotPageId) {
-            return new Container(
+            return Container(
               padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
               color: HomeScreenValues.getBackgroundColor(snapshotPageId.data),
               constraints: BoxConstraints.expand(),
-              child: new Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  new Image(
-                    image: new AssetImage("assets/images/healthPageSymbol.png"),
-                    height: HomeScreenValues.mainImageDims,
+                  Image(
+                    image: AssetImage("assets/images/healthPageSymbol.png"),
+                    height: HomeScreenValues.MAIN_IMG_DIMS,
                     fit: BoxFit.fitHeight,
                   ),
-                  new StreamBuilder<String>(
+                  StreamBuilder<String>(
                       stream: homeScreenBloc.getLvlStreamForPage(snapshotPageId.data),
                       builder: (context, snapshotLvlHeader) {
-                        return new Text(
-                            snapshotLvlHeader.data == null ? snapshotLvlHeader.data : "Loading.."
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
+                            child: Text(
+                              snapshotLvlHeader.data,
+                              style: TextStyle(
+                                fontSize: HomeScreenValues.lvlTitleFontSize
+                              ),
+                            ),
+                          ),
                         );
                       }
                   ),

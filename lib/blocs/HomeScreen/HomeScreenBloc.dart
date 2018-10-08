@@ -37,6 +37,7 @@ class HomeScreenBloc {
       case 2: return loveLvl;
       case 3: return happinessLvl;
     }
+    throw "Unknown page ID";
   }
 
   void dispose() {
@@ -87,6 +88,8 @@ class HomeScreenBloc {
         pageIdSink.add(pageId);
       }
       _sessionData.pageId = pageId;
+
+      return pageId;
     });
   }
 }
@@ -97,7 +100,10 @@ class HomeScreenValues {
   static const int MAX_PAGE_ID = 3;
 
   static const double SCREEN_PADDING = 50.0;
-  static const double mainImageDims = 144.0;
+  static const double MAIN_IMG_DIMS = 144.0;
+  static const double LVL_TITLE_PADDING = 30.0;
+
+  static double lvlTitleFontSize = 25.0;
 
   static getBackgroundColor(int pageId) {
     switch(pageId) {

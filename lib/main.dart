@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return new HomeScreenProvider(
       child: new MaterialApp(
         theme: new ThemeData(
-          primarySwatch: Colors.blue,
+          fontFamily: "Mali"
         ),
         home: new HomeScreen(),
       ),
