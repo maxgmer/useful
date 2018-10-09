@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
+import 'dart:math';
+
+import 'package:useful_app/customWidgets/CustomFAB.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -15,12 +18,19 @@ class _HomeScreenState extends State<StatefulWidget> {
   Widget build(BuildContext context) {
     final homeScreenBloc = HomeScreenProvider.getBloc(context);
     return Scaffold(
+      floatingActionButton: StreamBuilder<int>(
+          stream: homeScreenBloc.pageId,
+          builder: (context, pageId) {
+            return CustomFloatingActionButton(() =>
+                homeScreenBloc.pageIdSink.add(pageId.data + 1));
+          }
+      ),
       body: StreamBuilder<int>(
           stream: homeScreenBloc.pageId,
-          builder: (context, snapshotPageId) {
+          builder: (context, pageId) {
             return Container(
               padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
-              color: HomeScreenValues.getBackgroundColor(snapshotPageId.data),
+              color: HomeScreenValues.getBackgroundColor(pageId.data),
               constraints: BoxConstraints.expand(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,21 +41,47 @@ class _HomeScreenState extends State<StatefulWidget> {
                     fit: BoxFit.fitHeight,
                   ),
                   StreamBuilder<String>(
-                      stream: homeScreenBloc.getLvlStreamForPage(snapshotPageId.data),
-                      builder: (context, snapshotLvlHeader) {
+                      stream: homeScreenBloc.getLvlStreamForPage(pageId.data),
+                      builder: (context, textLvlHeader) {
                         return Center(
                           child: Padding(
-                            padding: const EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
+                            padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
                             child: Text(
-                              snapshotLvlHeader.data,
+                              textLvlHeader.data,
                               style: TextStyle(
-                                fontSize: HomeScreenValues.lvlTitleFontSize
+                                fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE
                               ),
                             ),
                           ),
                         );
                       }
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(left: HomeScreenValues.PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.PAGE_DETAILS_ROW_PADDING),
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING),
+                          child: Icon(
+                              Icons.trending_up,
+                              size: HomeScreenValues.PAGE_DETAILS_ROW_IMG_DIMS
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING),
+                          child: Icon(
+                              Icons.payment,
+                              size: HomeScreenValues.PAGE_DETAILS_ROW_IMG_DIMS
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+
+                    ],
+                  )
                 ],
               ),
             );

@@ -13,10 +13,10 @@ class HomeScreenBloc {
   }
 
   //read only for view, so we expose only Streams from these controllers
-  final BehaviorSubject<int> _healthLvlController = new BehaviorSubject<int>();
-  final BehaviorSubject<int> _wealthLvlController = new BehaviorSubject<int>();
-  final BehaviorSubject<int> _loveLvlController = new BehaviorSubject<int>();
-  final BehaviorSubject<int> _happinessLvlController = new BehaviorSubject<int>();
+  final BehaviorSubject<int> _healthLvlController = new BehaviorSubject<int>(seedValue: 1);
+  final BehaviorSubject<int> _wealthLvlController = new BehaviorSubject<int>(seedValue: 1);
+  final BehaviorSubject<int> _loveLvlController = new BehaviorSubject<int>(seedValue: 1);
+  final BehaviorSubject<int> _happinessLvlController = new BehaviorSubject<int>(seedValue: 1);
 
   Stream<String> get healthLvl => _formattedHealthLvlStream();
   Stream<String> get wealthLvl => _formattedWealthLvlStream();
@@ -24,8 +24,7 @@ class HomeScreenBloc {
   Stream<String> get happinessLvl => _formattedHappinessLvlStream();
 
 
-
-  final BehaviorSubject<int> _pageIdController = new BehaviorSubject<int>();
+  final BehaviorSubject<int> _pageIdController = new BehaviorSubject<int>(seedValue: 0);
 
   Stream<int> get pageId => _wrappedPageIdStream();
   Sink<int> get pageIdSink => _pageIdController.sink;
@@ -99,11 +98,15 @@ class HomeScreenBloc {
 class HomeScreenValues {
   static const int MAX_PAGE_ID = 3;
 
-  static const double SCREEN_PADDING = 50.0;
-  static const double MAIN_IMG_DIMS = 144.0;
+  static const double SCREEN_PADDING = 30.0;
   static const double LVL_TITLE_PADDING = 30.0;
+  static const double PAGE_DETAILS_ROW_PADDING = 10.0;
+  static const double INSIDE_PAGE_DETAILS_ROW_PADDING = 10.0;
 
-  static double lvlTitleFontSize = 25.0;
+  static const double PAGE_DETAILS_ROW_IMG_DIMS = 48.0;
+  static const double MAIN_IMG_DIMS = 144.0;
+
+  static const double LVL_TITLE_FONT_SIZE = 25.0;
 
   static getBackgroundColor(int pageId) {
     switch(pageId) {
@@ -112,5 +115,9 @@ class HomeScreenValues {
       case 2: return Color.fromRGBO(1, 0, 1, 1.0);
       case 3: return Color.fromRGBO(1, 0, 0, 1.0);
     }
+  }
+
+  static getFABColor() {
+    return Color.fromRGBO(248, 169, 54, 1.0);
   }
 }
