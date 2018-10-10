@@ -17,76 +17,44 @@ class _HomeScreenState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     final homeScreenBloc = HomeScreenProvider.getBloc(context);
-    return Scaffold(
-      floatingActionButton: StreamBuilder<int>(
-          stream: homeScreenBloc.pageId,
-          builder: (context, pageId) {
-            return CustomFloatingActionButton(() =>
-                homeScreenBloc.pageIdSink.add(pageId.data + 1));
-          }
-      ),
-      body: StreamBuilder<int>(
-          stream: homeScreenBloc.pageId,
-          builder: (context, pageId) {
-            return Container(
-              padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
-              color: HomeScreenValues.getBackgroundColor(pageId.data),
-              constraints: BoxConstraints.expand(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Image(
-                    image: AssetImage("assets/images/healthPageSymbol.png"),
-                    height: HomeScreenValues.MAIN_IMG_DIMS,
-                    fit: BoxFit.fitHeight,
-                  ),
-                  StreamBuilder<String>(
-                      stream: homeScreenBloc.getLvlStreamForPage(pageId.data),
-                      builder: (context, textLvlHeader) {
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
-                            child: Text(
-                              textLvlHeader.data,
-                              style: TextStyle(
-                                fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE
+    return StreamBuilder<int>(
+        stream: homeScreenBloc.pageId,
+        builder: (context, pageId) {
+          if (pageId.data != null)
+          return Scaffold(
+              floatingActionButton: CustomFloatingActionButton(() => homeScreenBloc.pageIdSink.add(pageId.data + 1)),
+              body: Container(
+                padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
+                color: HomeScreenValues.getBackgroundColor(pageId.data),
+                constraints: BoxConstraints.expand(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Image(
+                      image: AssetImage("assets/images/healthPageSymbol.png"),
+                      height: HomeScreenValues.MAIN_IMG_DIMS,
+                      fit: BoxFit.fitHeight,
+                    ),
+                    StreamBuilder<String>(
+                        stream: homeScreenBloc.getLvlStreamForPage(pageId.data),
+                        builder: (context, textLvlHeader) {
+                          if (textLvlHeader.hasData)
+                          return Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
+                              child: Text(
+                                textLvlHeader.data,
+                                style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE),
                               ),
                             ),
-                          ),
-                        );
-                      }
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: HomeScreenValues.PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.PAGE_DETAILS_ROW_PADDING),
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(left: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING),
-                          child: Icon(
-                              Icons.trending_up,
-                              size: HomeScreenValues.PAGE_DETAILS_ROW_IMG_DIMS
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING, right: HomeScreenValues.INSIDE_PAGE_DETAILS_ROW_PADDING),
-                          child: Icon(
-                              Icons.payment,
-                              size: HomeScreenValues.PAGE_DETAILS_ROW_IMG_DIMS
-                          ),
-                        )
-                      ],
+                          ); else return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
+                        }
                     ),
-                  ),
-                  Row(
-                    children: <Widget>[
-
-                    ],
-                  )
-                ],
-              ),
-            );
-          }
-          ),
+                  ],
+                ),
+              )
+          ); else return Text("HELLO!", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
+        }
     );
   }
 }

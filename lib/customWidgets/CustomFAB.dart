@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
-  final VoidCallback _onClick;
+  final Function _onClick;
 
   CustomFloatingActionButton(this._onClick);
 
@@ -16,9 +16,10 @@ class CustomFloatingActionButton extends StatefulWidget {
 
 
 class _CustomFABState extends State<CustomFloatingActionButton> with SingleTickerProviderStateMixin {
+  bool _wasPressed = false;
   CurvedAnimation animation;
   AnimationController controller;
-  VoidCallback _onClick;
+  Function _onClick;
 
   double _latestFinalTopLeftX = _CustomFABValues.calcRandomClipMain(),
       _latestFinalTopLeftY = _CustomFABValues.calcRandomClipMain();
@@ -37,10 +38,10 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   double _nextBottomRightX, _nextBottomRightY;
 
   double
-  _topLeftX, _topLeftY,
-  _topRightX, _topRightY,
-  _bottomLeftX, _bottomLeftY,
-  _bottomRightX, _bottomRightY;
+  _topLeftX = 0.0, _topLeftY = 0.0,
+  _topRightX = 0.0, _topRightY = 0.0,
+  _bottomLeftX = 0.0, _bottomLeftY = 0.0,
+  _bottomRightX = 0.0, _bottomRightY = 0.0;
 
   _CustomFABState(this._onClick);
 
@@ -48,8 +49,8 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
     super.initState();
     _initNext();
     controller = AnimationController(
-        duration: const Duration(milliseconds: 400), vsync: this);
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeInOut)
+        duration: Duration(milliseconds: 600), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeOut)
       ..addListener(() {
         setState(() {
           _topLeftX = _latestFinalTopLeftX + ((animation.value * _nextTopLeftX) - _latestFinalTopLeftX);
@@ -69,25 +70,39 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
         if (status == AnimationStatus.completed ||
             status == AnimationStatus.dismissed) {
           _nextAnimation();
+          _initNext();
         }
       });
     controller.forward();
   }
 
   Widget build(BuildContext context) {
-    return RaisedButton(
-      color: HomeScreenValues.getFABColor(),
-      padding: EdgeInsets.all(30.0),
-      elevation: 6.0,
-      shape: BeveledRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.elliptical(_topLeftX, _topLeftY),
-              topRight: Radius.elliptical(_topRightX, _topRightY),
-              bottomLeft: Radius.elliptical(_bottomLeftX, _bottomLeftY),
-              bottomRight: Radius.elliptical(_bottomRightX, _bottomRightY)
-          )
+    return Padding(
+      padding: EdgeInsets.only(
+          right: (_wasPressed ? (animation.value * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_RIGHT) :
+      ((1 - animation.value) * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_RIGHT)) + HomeScreenValues.MIN_FAB_PADDING_RIGHT,
+          bottom: (_wasPressed ? (animation.value * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_BOTTOM) :
+          ((1 - animation.value) * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_BOTTOM)) + HomeScreenValues.MIN_FAB_PADDING_BOTTOM),
+      child: RaisedButton(
+        color: HomeScreenValues.getFABColor(animation.value),
+        splashColor: Color.fromRGBO(0, 0, 0, 0.0),
+        padding: EdgeInsets.all(30.0),
+        highlightColor: HomeScreenValues.getFABOnPressedColor(),
+        elevation: animation.value * 10,
+        shape: BeveledRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.elliptical(_topLeftX, _topLeftY),
+                topRight: Radius.elliptical(_topRightX, _topRightY),
+                bottomLeft: Radius.elliptical(_bottomLeftX, _bottomLeftY),
+                bottomRight: Radius.elliptical(_bottomRightX, _bottomRightY)
+            )
+        ),
+        onPressed: () {
+          _onClick();
+          controller.forward(from: 0.0);
+          _wasPressed = !_wasPressed;
+        },
       ),
-      onPressed: _onClick,
     );
   }
 
@@ -126,11 +141,11 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
 }
 
 class _CustomFABValues {
-  static const double _MAX_BUTTON_CLIP_SECONDARY = 35.0;
-  static const double _MAX_BUTTON_CLIP_MAIN = 40.0;
+  static const double _MAX_BUTTON_CLIP_SECONDARY = 40.0;
+  static const double _MAX_BUTTON_CLIP_MAIN = 60.0;
 
-  static const int _GUARANTEED_CLIP_MAIN = 10;
-  static const int _GUARANTEED_CLIP_SECONDARY = 5;
+  static const int _GUARANTEED_CLIP_MAIN = 5;
+  static const int _GUARANTEED_CLIP_SECONDARY = 2;
 
   static double calcRandomClipMain() => Random().nextDouble() * _MAX_BUTTON_CLIP_MAIN + _GUARANTEED_CLIP_MAIN;
   static double calcRandomClipSecondary() => Random().nextDouble() * _MAX_BUTTON_CLIP_SECONDARY + _GUARANTEED_CLIP_SECONDARY;
