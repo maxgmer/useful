@@ -5,13 +5,13 @@ import 'dart:math';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
-  final Function _onClick;
 
-  CustomFloatingActionButton(this._onClick);
-
+  CustomFloatingActionButton(Function onClick) {
+    _CustomFABState.onClick = onClick;
+  }
 
   @override
-  State<StatefulWidget> createState() => new _CustomFABState(_onClick);
+  State<StatefulWidget> createState() => new _CustomFABState();
 }
 
 
@@ -19,7 +19,6 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   bool _wasPressed = false;
   CurvedAnimation animation;
   AnimationController controller;
-  Function _onClick;
 
   double _latestFinalTopLeftX = _CustomFABValues.calcRandomClipMain(),
       _latestFinalTopLeftY = _CustomFABValues.calcRandomClipMain();
@@ -43,13 +42,14 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   _bottomLeftX = 0.0, _bottomLeftY = 0.0,
   _bottomRightX = 0.0, _bottomRightY = 0.0;
 
-  _CustomFABState(this._onClick);
+  static Function _onClick;
+  static set onClick(Function onClick) => _onClick = onClick;
 
   initState() {
     super.initState();
     _initNext();
     controller = AnimationController(
-        duration: Duration(milliseconds: 600), vsync: this);
+        duration: Duration(milliseconds: _CustomFABValues.ANIMATION_DURATION), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeOut)
       ..addListener(() {
         setState(() {
@@ -85,10 +85,10 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
           ((1 - animation.value) * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_BOTTOM)) + HomeScreenValues.MIN_FAB_PADDING_BOTTOM),
       child: RaisedButton(
         color: HomeScreenValues.getFABColor(animation.value),
-        splashColor: Color.fromRGBO(0, 0, 0, 0.0),
-        padding: EdgeInsets.all(30.0),
+        splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
+        padding: EdgeInsets.all(HomeScreenValues.FAB_SIZE),
         highlightColor: HomeScreenValues.getFABOnPressedColor(),
-        elevation: animation.value * 10,
+        elevation: animation.value * HomeScreenValues.MAX_FAB_ELEVATION,
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(_topLeftX, _topLeftY),
@@ -141,6 +141,8 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
 }
 
 class _CustomFABValues {
+  static const int ANIMATION_DURATION = 200;
+
   static const double _MAX_BUTTON_CLIP_SECONDARY = 40.0;
   static const double _MAX_BUTTON_CLIP_MAIN = 60.0;
 
