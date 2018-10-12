@@ -113,10 +113,10 @@ class HomeScreenValues {
 
   static getBackgroundColor(int pageId) {
     switch(pageId) {
-      case 0: return Color.fromRGBO(184, 240, 119, 1.0);//Color.fromRGBO(138, 194, 73, 1.0);
-      case 1: return Color.fromRGBO(138, 194, 73, 1.0);
-      case 2: return Color.fromRGBO(184, 240, 119, 1.0);
-      case 3: return Color.fromRGBO(138, 194, 73, 1.0);
+      case 0: return Color.fromRGBO(184, 240, 119, 1.0);
+      case 1: return Color.fromRGBO(254, 248, 197, 1.0);
+      case 2: return Color.fromRGBO(255, 201, 182, 1.0);
+      case 3: return Color.fromRGBO(194, 250, 248, 1.0);
     }
   }
 
