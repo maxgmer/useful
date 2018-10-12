@@ -1,6 +1,5 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 
@@ -20,20 +19,20 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   CurvedAnimation animation;
   AnimationController controller;
 
-  double _latestFinalTopLeftX = _CustomFABValues.calcRandomClipMain(),
-      _latestFinalTopLeftY = _CustomFABValues.calcRandomClipMain();
+  double _latestFinalTopLeftX = CustomFABValues.calcRandomClipMain(),
+      _latestFinalTopLeftY = CustomFABValues.calcRandomClipMain();
   double _nextTopLeftX, _nextTopLeftY;
 
-  double _latestFinalTopRightX = _CustomFABValues.calcRandomClipSecondary(),
-      _latestFinalTopRightY = _CustomFABValues.calcRandomClipSecondary();
+  double _latestFinalTopRightX = CustomFABValues.calcRandomClipSecondary(),
+      _latestFinalTopRightY = CustomFABValues.calcRandomClipSecondary();
   double _nextTopRightX, _nextTopRightY;
 
-  double _latestFinalBottomLeftX = _CustomFABValues.calcRandomClipSecondary(),
-      _latestFinalBottomLeftY = _CustomFABValues.calcRandomClipSecondary();
+  double _latestFinalBottomLeftX = CustomFABValues.calcRandomClipSecondary(),
+      _latestFinalBottomLeftY = CustomFABValues.calcRandomClipSecondary();
   double _nextBottomLeftX, _nextBottomLeftY;
 
-  double _latestFinalBottomRightX = _CustomFABValues.calcRandomClipMain(),
-      _latestFinalBottomRightY = _CustomFABValues.calcRandomClipMain();
+  double _latestFinalBottomRightX = CustomFABValues.calcRandomClipMain(),
+      _latestFinalBottomRightY = CustomFABValues.calcRandomClipMain();
   double _nextBottomRightX, _nextBottomRightY;
 
   double
@@ -49,7 +48,7 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
     super.initState();
     _initNext();
     controller = AnimationController(
-        duration: Duration(milliseconds: _CustomFABValues.ANIMATION_DURATION), vsync: this);
+        duration: Duration(milliseconds: CustomFABValues.ANIMATION_DURATION), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeOut)
       ..addListener(() {
         setState(() {
@@ -79,16 +78,16 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          right: (_wasPressed ? (animation.value * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_RIGHT) :
-      ((1 - animation.value) * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_RIGHT)) + HomeScreenValues.MIN_FAB_PADDING_RIGHT,
-          bottom: (_wasPressed ? (animation.value * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_BOTTOM) :
-          ((1 - animation.value) * HomeScreenValues.INTERPOLATABLE_FAB_PADDING_BOTTOM)) + HomeScreenValues.MIN_FAB_PADDING_BOTTOM),
+          right: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_FAB_PADDING_RIGHT) :
+      ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_FAB_PADDING_RIGHT)) + CustomFABValues.MIN_FAB_PADDING_RIGHT,
+          bottom: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_FAB_PADDING_BOTTOM) :
+          ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_FAB_PADDING_BOTTOM)) + CustomFABValues.MIN_FAB_PADDING_BOTTOM),
       child: RaisedButton(
         color: HomeScreenValues.getFABColor(animation.value),
         splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
-        padding: EdgeInsets.all(HomeScreenValues.FAB_SIZE),
+        padding: EdgeInsets.all(CustomFABValues.FAB_SIZE),
         highlightColor: HomeScreenValues.getFABOnPressedColor(),
-        elevation: animation.value * HomeScreenValues.MAX_FAB_ELEVATION,
+        elevation: animation.value * CustomFABValues.MAX_FAB_ELEVATION,
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(_topLeftX, _topLeftY),
@@ -112,17 +111,17 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   }
 
   void _initNext() {
-    _nextTopLeftX = _CustomFABValues.calcRandomClipMain();
-    _nextTopLeftY = _CustomFABValues.calcRandomClipMain();
+    _nextTopLeftX = CustomFABValues.calcRandomClipMain();
+    _nextTopLeftY = CustomFABValues.calcRandomClipMain();
 
-    _nextTopRightX = _CustomFABValues.calcRandomClipSecondary();
-    _nextTopRightY = _CustomFABValues.calcRandomClipSecondary();
+    _nextTopRightX = CustomFABValues.calcRandomClipSecondary();
+    _nextTopRightY = CustomFABValues.calcRandomClipSecondary();
 
-    _nextBottomLeftX = _CustomFABValues.calcRandomClipSecondary();
-    _nextBottomLeftY = _CustomFABValues.calcRandomClipSecondary();
+    _nextBottomLeftX = CustomFABValues.calcRandomClipSecondary();
+    _nextBottomLeftY = CustomFABValues.calcRandomClipSecondary();
 
-    _nextBottomRightX = _CustomFABValues.calcRandomClipMain();
-    _nextBottomRightY = _CustomFABValues.calcRandomClipMain();
+    _nextBottomRightX = CustomFABValues.calcRandomClipMain();
+    _nextBottomRightY = CustomFABValues.calcRandomClipMain();
   }
 
   void _nextAnimation() {
@@ -140,15 +139,3 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   }
 }
 
-class _CustomFABValues {
-  static const int ANIMATION_DURATION = 200;
-
-  static const double _MAX_BUTTON_CLIP_SECONDARY = 40.0;
-  static const double _MAX_BUTTON_CLIP_MAIN = 60.0;
-
-  static const int _GUARANTEED_CLIP_MAIN = 5;
-  static const int _GUARANTEED_CLIP_SECONDARY = 2;
-
-  static double calcRandomClipMain() => Random().nextDouble() * _MAX_BUTTON_CLIP_MAIN + _GUARANTEED_CLIP_MAIN;
-  static double calcRandomClipSecondary() => Random().nextDouble() * _MAX_BUTTON_CLIP_SECONDARY + _GUARANTEED_CLIP_SECONDARY;
-}

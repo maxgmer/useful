@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
+import 'package:useful_app/customWidgets/BreathingImage.dart';
 import 'dart:math';
 
 import 'package:useful_app/customWidgets/CustomFAB.dart';
@@ -30,10 +31,9 @@ class _HomeScreenState extends State<StatefulWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Image(
-                      image: AssetImage("assets/images/healthPageSymbol.png"),
-                      height: HomeScreenValues.MAIN_IMG_DIMS,
-                      fit: BoxFit.fitHeight,
+                    BreathingImage(
+                        AssetImage(BreathingImageValues.getImagePath(pageId.data)),
+                        size: BreathingImageValues.MAIN_IMG_SIZE
                     ),
                     StreamBuilder<String>(
                         stream: homeScreenBloc.getLvlStreamForPage(pageId.data),

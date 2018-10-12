@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:useful_app/models/UserDataModel.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
+
 
 class HomeScreenBloc {
   final SessionDataModel _sessionData = new SessionDataModel();
@@ -100,20 +102,11 @@ class HomeScreenValues {
 
   static const double SCREEN_PADDING = 30.0;
 
-  static const double LVL_TITLE_PADDING = 30.0;
+  static const double LVL_TITLE_PADDING = 15.0;
 
   static const double PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double INSIDE_PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double PAGE_DETAILS_ROW_IMG_DIMS = 48.0;
-
-  static const double MIN_FAB_PADDING_RIGHT = 5.0;
-  static const double MIN_FAB_PADDING_BOTTOM = 10.0;
-  static const double INTERPOLATABLE_FAB_PADDING_RIGHT = 5.0;
-  static const double INTERPOLATABLE_FAB_PADDING_BOTTOM = 15.0;
-  static const double FAB_SIZE = 30.0;
-  static const int MAX_FAB_ELEVATION = 10;
-
-  static const double MAIN_IMG_DIMS = 144.0;
 
   static const double LVL_TITLE_FONT_SIZE = 25.0;
 
@@ -129,6 +122,41 @@ class HomeScreenValues {
 
   static getFABColor(double value) => Color.lerp(getFABOnPressedColor(), Color.fromRGBO(248, 169, 54, 1.0), value); //smoothly interpolates from pressed to main
   static getFABOnPressedColor() => Color.fromRGBO(174, 95, 0, 1.0);
+}
 
+class CustomFABValues {
+  static const int ANIMATION_DURATION = 200;
+
+  static const double MIN_FAB_PADDING_RIGHT = 5.0;
+  static const double MIN_FAB_PADDING_BOTTOM = 10.0;
+  static const double INTERPOLATABLE_FAB_PADDING_RIGHT = 5.0;
+  static const double INTERPOLATABLE_FAB_PADDING_BOTTOM = 15.0;
+  static const double FAB_SIZE = 30.0;
+  static const int MAX_FAB_ELEVATION = 10;
+
+  static const double _MAX_BUTTON_CLIP_SECONDARY = 40.0;
+  static const double _MAX_BUTTON_CLIP_MAIN = 60.0;
+
+  static const int _GUARANTEED_CLIP_MAIN = 5;
+  static const int _GUARANTEED_CLIP_SECONDARY = 2;
+
+  static double calcRandomClipMain() => Random().nextDouble() * _MAX_BUTTON_CLIP_MAIN + _GUARANTEED_CLIP_MAIN;
+  static double calcRandomClipSecondary() => Random().nextDouble() * _MAX_BUTTON_CLIP_SECONDARY + _GUARANTEED_CLIP_SECONDARY;
+}
+
+class BreathingImageValues {
+  static const int ANIMATION_DURATION = 4000;
+
+  static const double MAIN_IMG_SIZE = 120.0;
+  static const int FULL_LUNGS_SIZE_ADDITION = 10;
+
+  static String getImagePath(int pageId) {
+    switch(pageId) {
+      case 0: return "assets/images/healthPageSymbol.png";
+      case 1: return "assets/images/wealthPageSymbol.png";
+      case 2: return "assets/images/lovePageSymbol.png";
+      case 3: return "assets/images/happinessPageSymbol.png";
+    }
+  }
 
 }
