@@ -94,9 +94,12 @@ class HomeScreenBloc {
     });
   }
 }
-
-
-//A convenience class for storing constants.
+//////////////////////////////////////////////////////////
+//                                                      //
+//   Classes below are for storing constants            //
+//   like padding, colors etc.                          //
+//                                                      //
+//////////////////////////////////////////////////////////
 class HomeScreenValues {
   static const int MAX_PAGE_ID = 3;
 
@@ -124,25 +127,29 @@ class HomeScreenValues {
   static getFABOnPressedColor() => Color.fromRGBO(174, 95, 0, 1.0);
 }
 
+
+
 class CustomFABValues {
   static const int ANIMATION_DURATION = 200;
 
-  static const double MIN_FAB_PADDING_RIGHT = 5.0;
-  static const double MIN_FAB_PADDING_BOTTOM = 10.0;
-  static const double INTERPOLATABLE_FAB_PADDING_RIGHT = 5.0;
-  static const double INTERPOLATABLE_FAB_PADDING_BOTTOM = 15.0;
-  static const double FAB_SIZE = 30.0;
-  static const int MAX_FAB_ELEVATION = 10;
+  static const double MIN_PADDING_RIGHT = 5.0;
+  static const double MIN_PADDING_BOTTOM = 10.0;
+  static const double INTERPOLATABLE_PADDING_RIGHT = 5.0;
+  static const double INTERPOLATABLE_PADDING_BOTTOM = 15.0;
+  static const double SIZE = 25.0;
+  static const int MAX_ELEVATION = 10;
 
-  static const double _MAX_BUTTON_CLIP_SECONDARY = 40.0;
-  static const double _MAX_BUTTON_CLIP_MAIN = 60.0;
+  static const double _MAX_CORNER_CLIP_SECONDARY = 40.0;
+  static const double _MAX_CORNER_CLIP_MAIN = 60.0;
 
   static const int _GUARANTEED_CLIP_MAIN = 5;
   static const int _GUARANTEED_CLIP_SECONDARY = 2;
 
-  static double calcRandomClipMain() => Random().nextDouble() * _MAX_BUTTON_CLIP_MAIN + _GUARANTEED_CLIP_MAIN;
-  static double calcRandomClipSecondary() => Random().nextDouble() * _MAX_BUTTON_CLIP_SECONDARY + _GUARANTEED_CLIP_SECONDARY;
+  static double calcRandomClipMain() => Random().nextDouble() * _MAX_CORNER_CLIP_MAIN + _GUARANTEED_CLIP_MAIN;
+  static double calcRandomClipSecondary() => Random().nextDouble() * _MAX_CORNER_CLIP_SECONDARY + _GUARANTEED_CLIP_SECONDARY;
 }
+
+
 
 class BreathingImageValues {
   static const int ANIMATION_DURATION = 4000;
@@ -158,5 +165,17 @@ class BreathingImageValues {
       case 3: return "assets/images/happinessPageSymbol.png";
     }
   }
+}
 
+
+class StatsGraphValues {
+  static const double PADDING_TOP = 90.0;
+
+  static const int MARKUP_COLOR_DARKEN_VALUE = 50;
+
+  static const double SIZE = 200.0;
+
+  static const double FONT_SIZE = 18.0;
+
+  static const double SPACE_FOR_NUMBERS_SIZE = 35.0;
 }

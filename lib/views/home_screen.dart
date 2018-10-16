@@ -5,6 +5,8 @@ import 'package:useful_app/customWidgets/BreathingImage.dart';
 import 'dart:math';
 
 import 'package:useful_app/customWidgets/CustomFAB.dart';
+import 'package:useful_app/customWidgets/StatsGraph.dart';
+import 'package:useful_app/util/ColorHelper.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -39,22 +41,28 @@ class _HomeScreenState extends State<StatefulWidget> {
                         stream: homeScreenBloc.getLvlStreamForPage(pageId.data),
                         builder: (context, textLvlHeader) {
                           if (textLvlHeader.hasData)
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
-                              child: Text(
-                                textLvlHeader.data,
-                                style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE),
+                            return Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
+                                child: Text(
+                                  textLvlHeader.data,
+                                  style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE),
+                                ),
                               ),
-                            ),
-                          ); else return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
-                        }
+                            ); else return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
+                        },
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
+                      child: StatsGraph(
+                        graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data), StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                      ),
+                    )
                   ],
                 ),
               )
           ); else return Text("HELLO!", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
-        }
+        },
     );
   }
 }

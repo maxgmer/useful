@@ -78,16 +78,16 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          right: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_FAB_PADDING_RIGHT) :
-      ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_FAB_PADDING_RIGHT)) + CustomFABValues.MIN_FAB_PADDING_RIGHT,
-          bottom: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_FAB_PADDING_BOTTOM) :
-          ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_FAB_PADDING_BOTTOM)) + CustomFABValues.MIN_FAB_PADDING_BOTTOM),
+          right: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_PADDING_RIGHT) :
+      ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_PADDING_RIGHT)) + CustomFABValues.MIN_PADDING_RIGHT,
+          bottom: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM) :
+          ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM)) + CustomFABValues.MIN_PADDING_BOTTOM),
       child: RaisedButton(
         color: HomeScreenValues.getFABColor(animation.value),
         splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
-        padding: EdgeInsets.all(CustomFABValues.FAB_SIZE),
+        padding: EdgeInsets.all(CustomFABValues.SIZE),
         highlightColor: HomeScreenValues.getFABOnPressedColor(),
-        elevation: animation.value * CustomFABValues.MAX_FAB_ELEVATION,
+        elevation: animation.value * CustomFABValues.MAX_ELEVATION,
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(_topLeftX, _topLeftY),
