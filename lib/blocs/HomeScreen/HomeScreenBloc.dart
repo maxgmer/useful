@@ -31,6 +31,12 @@ class HomeScreenBloc {
   Stream<int> get pageId => _wrappedPageIdStream();
   Sink<int> get pageIdSink => _pageIdController.sink;
 
+
+  final BehaviorSubject<StatsGraphTimeFrame> _statsGraphTimeFrameController = new BehaviorSubject<StatsGraphTimeFrame>();
+
+  Stream<StatsGraphTimeFrame> get graph => _statsGraphTimeFrameController.stream;
+  Sink<StatsGraphTimeFrame> get graphSink => _statsGraphTimeFrameController.sink;
+
   Stream<String> getLvlStreamForPage(int currentPageId) {
     switch(currentPageId) {
       case 0: return healthLvl;
@@ -47,6 +53,7 @@ class HomeScreenBloc {
     _loveLvlController.close();
     _happinessLvlController.close();
     _pageIdController.close();
+    _statsGraphTimeFrameController.close();
   }
 
   /*
@@ -61,6 +68,7 @@ class HomeScreenBloc {
     _loveLvlController.add(_userData.loveLvl);
     _happinessLvlController.add(_userData.happinessLvl);
     pageIdSink.add(_sessionData.pageId);
+    graphSink.add(_sessionData.graphTimeFrame);
   }
 
   //Does not let user change to non-existent page
@@ -175,7 +183,8 @@ class StatsGraphValues {
 
   static const double SIZE = 200.0;
 
-  static const double FONT_SIZE = 18.0;
+  static const double FONT_SIZE_VERTICAL_MARKUP_TEXT = 17.0;
+  static const double FONT_SIZE_HORIZONTAL_MARKUP_TEXT = 16.0;
 
   static const double SPACE_FOR_NUMBERS_SIZE = 35.0;
 }

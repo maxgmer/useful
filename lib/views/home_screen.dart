@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
+import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,11 +53,17 @@ class _HomeScreenState extends State<StatefulWidget> {
                             ); else return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
                         },
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
-                      child: StatsGraph(
-                        graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data), StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
-                      ),
+                    StreamBuilder<StatsGraphTimeFrame>(
+                        stream: homeScreenBloc.graph,
+                        builder: (context, graphTimeFrame) {
+                          return Padding(
+                            padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
+                            child: StatsGraph(
+                              timeFrame: graphTimeFrame.data,
+                              graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data), StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                            ),
+                          );
+                        },
                     )
                   ],
                 ),
