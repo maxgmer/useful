@@ -53,6 +53,18 @@ class _HomeScreenState extends State<StatefulWidget> {
                             ); else return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
                         },
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
+                      child: Center(
+                          child: RaisedButton(
+                            child: Text("Improve health!", style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)),
+                            shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
+                            color: HomeScreenValues.getImproveButtonColor(pageId.data),
+                            splashColor: Color.fromRGBO(132, 188, 74, 1.0),
+                            onPressed: (){},
+                          )
+                      ),
+                    ),
                     StreamBuilder<StatsGraphTimeFrame>(
                         stream: homeScreenBloc.graph,
                         builder: (context, graphTimeFrame) {

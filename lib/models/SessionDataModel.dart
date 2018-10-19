@@ -5,7 +5,7 @@ class SessionDataModel {
   int get pageId => _pageId;
   set pageId(pageId) => _pageId = pageId;
 
-  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.YEAR;
+  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.WEEK;
   StatsGraphTimeFrame get graphTimeFrame => _graphTimeFrame;
   set graphTimeFrame(graphTimeFrame) => _graphTimeFrame;
 }

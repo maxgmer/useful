@@ -114,13 +114,16 @@ class HomeScreenValues {
   static const double SCREEN_PADDING = 30.0;
 
   static const double LVL_TITLE_PADDING = 15.0;
+  static const double IMPROVE_BUTTON_PADDING_TOP = 70.0;
 
   static const double PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double INSIDE_PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double PAGE_DETAILS_ROW_IMG_DIMS = 48.0;
 
   static const double LVL_TITLE_FONT_SIZE = 25.0;
+  static const double IMPROVE_BUTTON_FONT_SIZE = 24.0;
 
+  static const double IMPROVE_BUTTON_CLIP_RADIUS = 10.0;
 
   static getBackgroundColor(int pageId) {
     switch(pageId) {
@@ -128,6 +131,15 @@ class HomeScreenValues {
       case 1: return Color.fromRGBO(254, 248, 197, 1.0);
       case 2: return Color.fromRGBO(255, 201, 182, 1.0);
       case 3: return Color.fromRGBO(194, 250, 248, 1.0);
+    }
+  }
+
+  static getImproveButtonColor(int pageId) {
+    switch(pageId) {
+      case 0: return Color.fromRGBO(235, 254, 169, 1.0);
+      case 1: return Color.fromRGBO(222, 217, 169, 1.0);
+      case 2: return Color.fromRGBO(255, 182, 169, 1.0);
+      case 3: return Color.fromRGBO(179, 225, 255, 1.0);
     }
   }
 
@@ -177,7 +189,7 @@ class BreathingImageValues {
 
 
 class StatsGraphValues {
-  static const double PADDING_TOP = 90.0;
+  static const double PADDING_TOP = 10.0;
 
   static const int MARKUP_COLOR_DARKEN_VALUE = 50;
 
