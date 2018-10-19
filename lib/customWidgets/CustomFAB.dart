@@ -86,7 +86,11 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
       child: RaisedButton(
         color: HomeScreenValues.getFABColor(animation.value),
         splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
-        padding: EdgeInsets.all(CustomFABValues.SIZE),
+        padding: EdgeInsets.only(
+            top: CustomFABValues.SIZE,
+            bottom: CustomFABValues.SIZE,
+            right: CustomFABValues.SIZE / 2,
+            left: CustomFABValues.SIZE / 2),
         highlightColor: HomeScreenValues.getFABOnPressedColor(),
         elevation: animation.value * CustomFABValues.MAX_ELEVATION,
         shape: BeveledRectangleBorder(

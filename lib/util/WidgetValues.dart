@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/*
+  Widget values, which are not connected to business logic
+ */
 class HomeScreenValues {
   static const int MAX_PAGE_ID = 3;
 
@@ -39,6 +42,16 @@ class HomeScreenValues {
     throw "Unknown page ID";
   }
 
+  static Color getImproveButtonSplashColor(int pageId) {
+    switch(pageId) {
+      case 0: return Color.fromRGBO(132, 188, 74, 1.0);
+      case 1: return Colors.white;
+      case 2: return Colors.white;
+      case 3: return Colors.white;
+    }
+    throw "Unknown page ID";
+  }
+
   static getFABColor(double value) => Color.lerp(getFABOnPressedColor(), Color.fromRGBO(248, 169, 54, 1.0), value); //smoothly interpolates from pressed to main
   static getFABOnPressedColor() => Color.fromRGBO(174, 95, 0, 1.0);
 }
@@ -52,7 +65,7 @@ class CustomFABValues {
   static const double MIN_PADDING_BOTTOM = 10.0;
   static const double INTERPOLATABLE_PADDING_RIGHT = 5.0;
   static const double INTERPOLATABLE_PADDING_BOTTOM = 15.0;
-  static const double SIZE = 25.0;
+  static const double SIZE = 30.0;
   static const int MAX_ELEVATION = 10;
 
   static const double _MAX_CORNER_CLIP_SECONDARY = 40.0;

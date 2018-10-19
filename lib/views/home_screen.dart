@@ -61,7 +61,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                             child: Text(homeScreenBloc.getImproveButtonString(pageId.data), style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)),
                             shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
                             color: HomeScreenValues.getImproveButtonColor(pageId.data),
-                            splashColor: Color.fromRGBO(132, 188, 74, 1.0),
+                            splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
                             onPressed: (){},
                           )
                       ),
