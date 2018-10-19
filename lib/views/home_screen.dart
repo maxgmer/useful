@@ -8,6 +8,7 @@ import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
+import 'package:useful_app/util/WidgetValues.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                         size: BreathingImageValues.MAIN_IMG_SIZE
                     ),
                     StreamBuilder<String>(
-                        stream: homeScreenBloc.getLvlStreamForPage(pageId.data),
+                        stream: homeScreenBloc.getLvlStream(pageId.data),
                         builder: (context, textLvlHeader) {
                           if (textLvlHeader.hasData)
                             return Center(
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                       padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
                       child: Center(
                           child: RaisedButton(
-                            child: Text("Improve health!", style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)),
+                            child: Text(homeScreenBloc.getImproveButtonString(pageId.data), style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)),
                             shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
                             color: HomeScreenValues.getImproveButtonColor(pageId.data),
                             splashColor: Color.fromRGBO(132, 188, 74, 1.0),

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
+import 'package:useful_app/util/WidgetValues.dart';
 
 class StatsGraph extends StatefulWidget {
 
