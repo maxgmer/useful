@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
+import 'package:useful_app/models/Event.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/WidgetValues.dart';
 
 class StatsGraph extends StatefulWidget {
 
-  StatsGraph({Color graphMarkupColor, StatsGraphTimeFrame timeFrame}) {
+  StatsGraph(List<Event> events, {Color graphMarkupColor, StatsGraphTimeFrame timeFrame}) {
+    _StatsGraphState.events = events;
     _StatsGraphState.timeFrame = timeFrame;
     _StatsGraphState.graphMarkupColor = graphMarkupColor;
   }
@@ -18,6 +18,8 @@ class StatsGraph extends StatefulWidget {
 }
 
 class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
+  static List<Event> events;
+
   static StatsGraphTimeFrame timeFrame;
   static Color graphMarkupColor;
 

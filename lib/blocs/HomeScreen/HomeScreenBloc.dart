@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:rxdart/subjects.dart';
+import 'package:useful_app/models/Event.dart';
 import 'package:useful_app/models/UserDataModel.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/WidgetValues.dart';
@@ -11,6 +12,8 @@ class HomeScreenBloc {
 
   HomeScreenBloc() {
     _initHomeScreenWidgetsWithInitialValues();
+    graph.listen((statsGraphTimeFrame) => _sessionData.graphTimeFrame = statsGraphTimeFrame);
+    events.listen((events) => _sessionData.events = events);
   }
 
   //read only for view, so we expose only Streams from these controllers
@@ -35,6 +38,12 @@ class HomeScreenBloc {
 
   Stream<StatsGraphTimeFrame> get graph => _statsGraphTimeFrameController.stream;
   Sink<StatsGraphTimeFrame> get graphSink => _statsGraphTimeFrameController.sink;
+
+
+  final BehaviorSubject<List<Event>> _eventsController = new BehaviorSubject<List<Event>>();
+
+  Stream<List<Event>> get events => _eventsController.stream;
+  Sink<List<Event>> get eventsSink => _eventsController.sink;
 
   Stream<String> getLvlStream(int currentPageId) {
     switch(currentPageId) {
@@ -63,6 +72,7 @@ class HomeScreenBloc {
     _happinessLvlController.close();
     _pageIdController.close();
     _statsGraphTimeFrameController.close();
+    _eventsController.close();
   }
 
   /*
@@ -78,6 +88,7 @@ class HomeScreenBloc {
     _happinessLvlController.add(_userData.happinessLvl);
     pageIdSink.add(_sessionData.pageId);
     graphSink.add(_sessionData.graphTimeFrame);
+    eventsSink.add(_sessionData.events);
   }
 
   //Does not let user change to non-existent page

@@ -1,5 +1,11 @@
+import 'package:useful_app/models/Event.dart';
+
 class SessionDataModel {
   SessionDataModel();
+
+  List<Event> _events = new List<Event>();
+  List<Event> get events => _events;
+  set events(List<Event> events) => _events = events;
 
   int _pageId = 0;
   int get pageId => _pageId;

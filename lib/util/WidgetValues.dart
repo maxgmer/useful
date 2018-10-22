@@ -45,9 +45,9 @@ class HomeScreenValues {
   static Color getImproveButtonSplashColor(int pageId) {
     switch(pageId) {
       case 0: return Color.fromRGBO(132, 188, 74, 1.0);
-      case 1: return Colors.white;
-      case 2: return Colors.white;
-      case 3: return Colors.white;
+      case 1: return Colors.brown;
+      case 2: return Colors.pinkAccent;
+      case 3: return Colors.cyan;
     }
     throw "Unknown page ID";
   }
