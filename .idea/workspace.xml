@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="edb182c9-f090-48c8-867b-8b90787675ee" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart" afterPath="$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart" />
       <change beforePath="$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart" afterPath="$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart" />
       <change beforePath="$PROJECT_DIR$/lib/models/SessionDataModel.dart" afterPath="$PROJECT_DIR$/lib/models/SessionDataModel.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/util/WidgetValues.dart" afterPath="$PROJECT_DIR$/lib/util/WidgetValues.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/views/home_screen.dart" afterPath="$PROJECT_DIR$/lib/views/home_screen.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -28,8 +25,8 @@
       <file leaf-file-name="home_screen.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/views/home_screen.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="81" column="52" lean-forward="true" selection-start-line="81" selection-start-column="52" selection-end-line="81" selection-end-column="52" />
+            <state relative-caret-position="0">
+              <caret line="81" column="52" lean-forward="false" selection-start-line="81" selection-start-column="52" selection-end-line="81" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -39,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/lib/models/Event.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
-              <caret line="17" column="25" lean-forward="true" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+              <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -48,8 +45,8 @@
       <file leaf-file-name="StatsGraph.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+            <state relative-caret-position="355">
+              <caret line="53" column="76" lean-forward="false" selection-start-line="53" selection-start-column="76" selection-end-line="53" selection-end-column="76" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -60,18 +57,18 @@
       <file leaf-file-name="CustomFAB.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/customWidgets/CustomFAB.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="831">
+            <state relative-caret-position="1462">
               <caret line="90" column="39" lean-forward="false" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeScreenBloc.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HomeScreenBloc.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="391">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -79,20 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeScreenProvider.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenProvider.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="WidgetValues.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/util/WidgetValues.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
+            <state relative-caret-position="782">
               <caret line="48" column="38" lean-forward="false" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -101,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SessionDataModel.dart" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SessionDataModel.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/models/SessionDataModel.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="52" lean-forward="true" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
+            <state relative-caret-position="391">
+              <caret line="43" column="34" lean-forward="true" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -190,11 +177,11 @@
         <option value="$PROJECT_DIR$/lib/customWidgets/BreathingImage.dart" />
         <option value="$PROJECT_DIR$/lib/customWidgets/CustomFAB.dart" />
         <option value="$PROJECT_DIR$/lib/util/WidgetValues.dart" />
-        <option value="$PROJECT_DIR$/lib/models/SessionDataModel.dart" />
         <option value="$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart" />
         <option value="$PROJECT_DIR$/lib/models/Event.dart" />
         <option value="$PROJECT_DIR$/lib/views/home_screen.dart" />
         <option value="$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart" />
+        <option value="$PROJECT_DIR$/lib/models/SessionDataModel.dart" />
       </list>
     </option>
   </component>
@@ -220,8 +207,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -277,7 +262,9 @@
         <option name="show-excluded-files" value="false" />
       </pane>
       <pane id="AndroidView" />
+      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -501,8 +488,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/packages/flutter/lib/src/widgets/implicit_animations.dart" />
-    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/bin/cache/pkg/sky_engine/lib/async/stream_controller.dart" />
     <entry file="file://$PROJECT_DIR$/../../Software/Flutter/bin/cache/pkg/sky_engine/lib/core/sink.dart" />
     <entry file="file://$PROJECT_DIR$/../../Software/Flutter/bin/cache/pkg/sky_engine/lib/core/object.dart" />
     <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/util/PageIdBehaviorSubject.dart" />
@@ -685,7 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="23" lean-forward="false" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -707,7 +691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -715,7 +698,71 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="74" lean-forward="false" selection-start-line="4" selection-start-column="74" selection-end-line="4" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.18.1/lib/src/subjects/behavior_subject.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/packages/flutter/lib/src/widgets/basic.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="385" column="8" lean-forward="false" selection-start-line="385" selection-start-column="8" selection-end-line="385" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenProvider.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/views/home_screen.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="81" column="52" lean-forward="false" selection-start-line="81" selection-start-column="52" selection-end-line="81" selection-end-column="52" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/models/Event.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/customWidgets/CustomFAB.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="90" column="39" lean-forward="false" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/util/WidgetValues.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="48" column="38" lean-forward="false" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -729,81 +776,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/.pub-cache/hosted/pub.dartlang.org/rxdart-0.18.1/lib/src/subjects/behavior_subject.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="47" column="10" lean-forward="false" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/customWidgets/CustomFAB.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="831">
-          <caret line="90" column="39" lean-forward="false" selection-start-line="90" selection-start-column="39" selection-end-line="90" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenProvider.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/SessionDataModel.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="52" lean-forward="true" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/models/Event.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="25" lean-forward="true" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/views/home_screen.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="81" column="52" lean-forward="true" selection-start-line="81" selection-start-column="52" selection-end-line="81" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="355">
+          <caret line="53" column="76" lean-forward="false" selection-start-line="53" selection-start-column="76" selection-end-line="53" selection-end-column="76" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/util/WidgetValues.dart">
+    <entry file="file://$PROJECT_DIR$/../../Software/Flutter/bin/cache/pkg/sky_engine/lib/core/date_time.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="48" column="38" lean-forward="false" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="250">
+          <caret line="785" column="19" lean-forward="false" selection-start-line="785" selection-start-column="19" selection-end-line="785" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart">
+    <entry file="file://$PROJECT_DIR$/lib/models/SessionDataModel.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="43" column="34" lean-forward="true" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

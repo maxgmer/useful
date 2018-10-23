@@ -14,7 +14,6 @@ class StatsGraph extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _StatsGraphState();
-
 }
 
 class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
@@ -27,7 +26,7 @@ class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new CustomPaint(
       size: Size(0.0, StatsGraphValues.SIZE),
-      painter: _StatsGraphPainter(timeFrame, graphMarkupColor),
+      painter: _StatsGraphPainter(events, timeFrame, graphMarkupColor),
     );
   }
 }
@@ -40,10 +39,9 @@ class _StatsGraphPainter extends CustomPainter {
   Color roundColor;
   Color _graphMarkupColor;
   StatsGraphTimeFrame timeFrame;
+  List<Event> events;
 
-  int maxTasksDoneInATimeframe = 10;//maxTasksDoneInATimeframe + (int)(maxTasksDoneInATimeframe / 3) = max graph height value
-
-  _StatsGraphPainter(this.timeFrame, this._graphMarkupColor);
+  _StatsGraphPainter(this.events, this.timeFrame, this._graphMarkupColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -51,6 +49,20 @@ class _StatsGraphPainter extends CustomPainter {
         ..strokeWidth = 1.0
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.fill;
+
+    //get beginning of the week time
+    DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
+
+    List<Event> currentTimeFrameEvents = List<Event>();
+
+    for (Event event in events) {
+      if (beginningOfTheTimeFrame.isBefore(DateTime.fromMillisecondsSinceEpoch(event.creationDate).toLocal())) {
+        currentTimeFrameEvents.add(event);
+      }
+    }
+
+    int tasksDoneInATimeframe = 10;//tasksDoneInATimeframe + (int)(tasksDoneInATimeframe / 3) = max graph height value
+
 
     paint.color = _graphMarkupColor;
     //draw horizontal lines
@@ -76,7 +88,7 @@ class _StatsGraphPainter extends CustomPainter {
     //draw vertical lines
     double shiftToRight = timeFrame == StatsGraphTimeFrame.YEAR ? 0.9 : 1.25;
     double shiftToRightText = timeFrame == StatsGraphTimeFrame.YEAR ? 0.70 : 1.0;
-    List<String> dayNames = StatsGraphTimeFrameDescriptor.getStrings(timeFrame);
+    List<String> dayNames = StatsGraphTimeFrameHelper.getStrings(timeFrame);
     double partOfWidth = size.width / dayNames.length;
     for (int i = 0; i < dayNames.length; i++) {
       canvas.drawLine(Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE * shiftToRight + (i * partOfWidth), _HEIGHT_SPACE_FOR_TEXT),

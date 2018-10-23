@@ -16,7 +16,9 @@ class SessionDataModel {
   set graphTimeFrame(graphTimeFrame) => _graphTimeFrame;
 }
 
-class StatsGraphTimeFrameDescriptor {
+
+
+class StatsGraphTimeFrameHelper {
   static List<String> getStrings(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK: return ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -24,6 +26,37 @@ class StatsGraphTimeFrameDescriptor {
       case StatsGraphTimeFrame.YEAR: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     }
     throw "Such timeframe does not exist!";
+  }
+
+  static DateTime getTimeFrameBeginning(StatsGraphTimeFrame timeFrame) {
+    switch(timeFrame) {
+      case StatsGraphTimeFrame.WEEK:
+        DateTime beginningOfTheWeek = DateTime.now();
+        beginningOfTheWeek = beginningOfTheWeek.toLocal();
+
+        //reset time to 00:00
+        beginningOfTheWeek.subtract(
+            Duration(hours: beginningOfTheWeek.hour, minutes: beginningOfTheWeek.minute, seconds: beginningOfTheWeek.second));
+        //reset weekday to monday
+        beginningOfTheWeek.subtract(
+            Duration(days: beginningOfTheWeek.weekday - 1));
+
+        return beginningOfTheWeek;
+      case StatsGraphTimeFrame.MONTH:
+        DateTime beginningOfTheMonth = DateTime.now();
+        beginningOfTheMonth = beginningOfTheMonth.toLocal();
+
+        //reset time to 00:00
+        beginningOfTheMonth.subtract(
+            Duration(hours: beginningOfTheMonth.hour, minutes: beginningOfTheMonth.minute, seconds: beginningOfTheMonth.second));
+        //reset day to first of the month
+        beginningOfTheMonth.subtract(
+            Duration(days: beginningOfTheMonth.day - 1));
+
+        return beginningOfTheMonth;
+      case StatsGraphTimeFrame.YEAR:
+        break;
+    }
   }
 }
 
