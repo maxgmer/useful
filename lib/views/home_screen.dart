@@ -6,7 +6,8 @@ import 'dart:math';
 
 import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
-import 'package:useful_app/models/Event.dart';
+import 'package:useful_app/models/Activity.dart';
+import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 import 'package:useful_app/util/WidgetValues.dart';
@@ -33,9 +34,9 @@ class _HomeScreenState extends State<StatefulWidget> {
                   padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
                   color: HomeScreenValues.getBackgroundColor(pageId.data),
                   constraints: BoxConstraints.expand(),
-                  child: StreamBuilder<List<Event>>(
-                    stream: homeScreenBloc.events,
-                    builder: (context, events) {
+                  child: StreamBuilder<List<Activity>>(
+                    stream: homeScreenBloc.activities,
+                    builder: (context, activities) {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                   shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
                                   color: HomeScreenValues.getImproveButtonColor(pageId.data),
                                   splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
-                                  onPressed: () => homeScreenBloc.eventsSink.add(EventFactory.createEvent(events.data, pageId.data)),
+                                  onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
                                 )
                             ),
                           ),
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                 return Padding(
                                   padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
                                   child: StatsGraph(
-                                    events.data,
+                                    activities.data,
                                     timeFrame: graphTimeFrame.data,
                                     graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
                                         StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
