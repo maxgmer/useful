@@ -26,76 +26,77 @@ class _HomeScreenState extends State<StatefulWidget> {
     final homeScreenBloc = HomeScreenProvider.getBloc(context);
     return StreamBuilder<int>(
         stream: homeScreenBloc.pageId,
+        initialData: homeScreenBloc.initialPageId,
         builder: (context, pageId) {
-          if (pageId.data != null)
-            return Scaffold(
-                floatingActionButton: CustomFloatingActionButton(() => homeScreenBloc.pageIdSink.add(pageId.data + 1)),
-                body: Container(
-                  padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
-                  color: HomeScreenValues.getBackgroundColor(pageId.data),
-                  constraints: BoxConstraints.expand(),
-                  child: StreamBuilder<List<Activity>>(
-                    stream: homeScreenBloc.activities,
-                    builder: (context, activities) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          BreathingImage(
-                              AssetImage(BreathingImageValues.getImagePath(pageId.data)),
-                              size: BreathingImageValues.MAIN_IMG_SIZE
+          return Scaffold(
+              floatingActionButton: CustomFloatingActionButton(() => homeScreenBloc.pageIdSink.add(pageId.data + 1)),
+              body: Container(
+                padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
+                color: HomeScreenValues.getBackgroundColor(pageId.data),
+                constraints: BoxConstraints.expand(),
+                child: StreamBuilder<List<Activity>>(
+                  stream: homeScreenBloc.activities,
+                  initialData: homeScreenBloc.initialActivities,
+                  builder: (context, activities) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        BreathingImage(
+                            AssetImage(BreathingImageValues.getImagePath(pageId.data)),
+                            size: BreathingImageValues.MAIN_IMG_SIZE
+                        ),
+                        StreamBuilder<String>(
+                          stream: homeScreenBloc.getLvlStream(pageId.data),
+                          initialData: homeScreenBloc.initialLvlHeaderText,
+                          builder: (context, textLvlHeader) {
+                            return Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
+                                child: Text(
+                                  textLvlHeader.data,
+                                  style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
+                          child: Center(
+                              child: RaisedButton(
+                                child: Text(
+                                    homeScreenBloc.getImproveButtonString(pageId.data),
+                                    style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
+                                ),
+                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
+                                color: HomeScreenValues.getImproveButtonColor(pageId.data),
+                                splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
+                                onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
+                              )
                           ),
-                          StreamBuilder<String>(
-                            stream: homeScreenBloc.getLvlStream(pageId.data),
-                            builder: (context, textLvlHeader) {
-                              if (textLvlHeader.hasData)
-                                return Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.all(HomeScreenValues.LVL_TITLE_PADDING),
-                                    child: Text(
-                                      textLvlHeader.data,
-                                      style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE),
-                                    ),
-                                  ),
-                                ); else
-                                  return Text("How are you bro? xD", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
-                            child: Center(
-                                child: RaisedButton(
-                                  child: Text(
-                                      homeScreenBloc.getImproveButtonString(pageId.data),
-                                      style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
-                                  ),
-                                  shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
-                                  color: HomeScreenValues.getImproveButtonColor(pageId.data),
-                                  splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
-                                  onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
-                                )
-                            ),
-                          ),
-                          StreamBuilder<StatsGraphTimeFrame>(
-                              stream: homeScreenBloc.graph,
-                              builder: (context, graphTimeFrame) {
-                                return Padding(
-                                  padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
-                                  child: StatsGraph(
-                                    activities.data,
-                                    timeFrame: graphTimeFrame.data,
-                                    graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
-                                        StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
-                                  ),
-                                );
-                              },
-                          )
-                        ],
-                      );
-                    },
+                        ),
+                        StreamBuilder<StatsGraphTimeFrame>(
+                          stream: homeScreenBloc.timeFrame,
+                          initialData: homeScreenBloc.initialTimeFrame,
+                          builder: (context, graphTimeFrame) {
+                            return Padding(
+                              padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
+                              child: StatsGraph(
+                                activities.data,
+                                timeFrame: graphTimeFrame.data,
+                                graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
+                                    StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    );
+                  },
                 ),
               )
-          ); else return Text("HELLO!", style: TextStyle(fontSize: HomeScreenValues.LVL_TITLE_FONT_SIZE));
-      }
+          );
+        }
     );
   }
 }

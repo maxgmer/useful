@@ -25,7 +25,7 @@ class StatsGraphTimeFrameHelper {
       case StatsGraphTimeFrame.MONTH: return ["07", "14", "21", "28"];
       case StatsGraphTimeFrame.YEAR: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     }
-    throw "Such timeframe does not exist!";
+    return[];
   }
 
   static DateTime getTimeFrameBeginning(StatsGraphTimeFrame timeFrame) {
@@ -65,15 +65,16 @@ class StatsGraphTimeFrameHelper {
             Duration(days: beginningOfTheYear.day - 1));
         return beginningOfTheYear;
     }
-    throw "Such timeframe does not exist!";
+    if (timeFrame != null)
+      throw "Such timeframe does not exist!";
   }
 
   //e.g for year timeframe returns number of activities in the best month (month with highest number of completed activities)
   static int getBestActivitiesNumber(StatsGraphTimeFrame timeFrame,
       List<Activity> currentTimeFrameActivities, DateTime beginningOfTheTimeFrame) {
+    int maxActivitiesInSegment = 0;
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK:
-        int maxActivitiesInSegment = 0;
         while (beginningOfTheTimeFrame.weekday <= 7) {
 
           int activitiesInSegment = 0;
@@ -89,9 +90,8 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame.add(
               Duration(days: 1));
         }
-        return maxActivitiesInSegment;
+        break;
       case StatsGraphTimeFrame.MONTH:
-        int maxActivitiesInSegment = 0;
         //when we specify 0 for day it gives us last day of the previous month
         var lastDayOfMonth = DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
         while (beginningOfTheTimeFrame.day <= lastDayOfMonth.day) {
@@ -109,9 +109,8 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame.add(
               Duration(days: 1));
         }
-        return maxActivitiesInSegment;
+        break;
       case StatsGraphTimeFrame.YEAR:
-        int maxActivitiesInSegment = 0;
         while (beginningOfTheTimeFrame.month <= 12) {
           //when we specify 0 for day it gives us last day of the previous month
 
@@ -132,9 +131,9 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame.add(
               Duration(days: 1));
         }
-        return maxActivitiesInSegment;
         break;
     }
+    return maxActivitiesInSegment;
   }
 }
 

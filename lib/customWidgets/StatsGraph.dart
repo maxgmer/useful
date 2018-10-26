@@ -56,7 +56,10 @@ class _StatsGraphPainter extends CustomPainter {
     }
     int maxReachedGraphValue = StatsGraphTimeFrameHelper.getBestActivitiesNumber(timeFrame, currentTimeFrameActivities, beginningOfTheTimeFrame);
 
-    int graphValueHeight = maxReachedGraphValue + (maxReachedGraphValue / 3).floor();
+    int graphValueHeight = maxReachedGraphValue + (maxReachedGraphValue / 3).ceil();
+    graphValueHeight = graphValueHeight + (5 - graphValueHeight % 5);
+
+    int fifthOfGraphValueHeight = (graphValueHeight / 5).round();
 
     Paint paint = new Paint()
         ..strokeWidth = 1.0
@@ -77,7 +80,7 @@ class _StatsGraphPainter extends CustomPainter {
               fontSize: StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT,
               fontFamily: "Mali"
           ),
-          text: (i + 1).toString());
+          text: (i /* fifthOfGraphValueHeight*/).toString());
       TextPainter activitiesAmount = TextPainter(text: span, textDirection: TextDirection.ltr);
       activitiesAmount.layout();
       activitiesAmount.paint(canvas, Offset(0.0, 10.0 + (i * fifthOfHeight)));
