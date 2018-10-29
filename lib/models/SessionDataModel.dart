@@ -25,7 +25,7 @@ class StatsGraphTimeFrameHelper {
       case StatsGraphTimeFrame.MONTH: return ["07", "14", "21", "28"];
       case StatsGraphTimeFrame.YEAR: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     }
-    return[];
+    throw "Such timeframe does not exist!";
   }
 
   static DateTime getTimeFrameBeginning(StatsGraphTimeFrame timeFrame) {
@@ -65,8 +65,7 @@ class StatsGraphTimeFrameHelper {
             Duration(days: beginningOfTheYear.day - 1));
         return beginningOfTheYear;
     }
-    if (timeFrame != null)
-      throw "Such timeframe does not exist!";
+    throw "Such timeframe does not exist!";
   }
 
   //e.g for year timeframe returns number of activities in the best month (month with highest number of completed activities)
