@@ -3,7 +3,7 @@ import 'package:useful_app/models/Activity.dart';
 class SessionDataModel {
   SessionDataModel();
 
-  List<Activity> _activities = new List<Activity>();
+  List<Activity> _activities = [Activity("Hello"),Activity("Hello"),Activity("Hello"),Activity("Hello"),Activity("Hello")];
   List<Activity> get activities => _activities;
   set activities(List<Activity> activities) => _activities = activities;
 
@@ -17,7 +17,7 @@ class SessionDataModel {
 }
 
 
-
+//need to move these somewhere else (IDE does not support that atm, too lazy to do that manually xD)
 class StatsGraphTimeFrameHelper {
   static List<String> getStrings(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
@@ -74,8 +74,7 @@ class StatsGraphTimeFrameHelper {
     int maxActivitiesInSegment = 0;
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK:
-        while (beginningOfTheTimeFrame.weekday <= 7) {
-
+        while (true) {
           int activitiesInSegment = 0;
           for (Activity activity in currentTimeFrameActivities) {
             if (DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal().isAfter(beginningOfTheTimeFrame)
@@ -86,15 +85,17 @@ class StatsGraphTimeFrameHelper {
           }
           if (activitiesInSegment > maxActivitiesInSegment)
             maxActivitiesInSegment = activitiesInSegment;
-          beginningOfTheTimeFrame.add(
+
+          beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
+
+          if (beginningOfTheTimeFrame.weekday == 7) break;
         }
         break;
       case StatsGraphTimeFrame.MONTH:
         //when we specify 0 for day it gives us last day of the previous month
         var lastDayOfMonth = DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
-        while (beginningOfTheTimeFrame.day <= lastDayOfMonth.day) {
-
+        while (true) {
           int activitiesInSegment = 0;
           for (Activity activity in currentTimeFrameActivities) {
             if (DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal().isAfter(beginningOfTheTimeFrame)
@@ -105,14 +106,16 @@ class StatsGraphTimeFrameHelper {
           }
           if (activitiesInSegment > maxActivitiesInSegment)
             maxActivitiesInSegment = activitiesInSegment;
-          beginningOfTheTimeFrame.add(
+
+          beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
+
+          if (beginningOfTheTimeFrame.day == lastDayOfMonth.day) break;
         }
         break;
       case StatsGraphTimeFrame.YEAR:
-        while (beginningOfTheTimeFrame.month <= 12) {
+        while (true) {
           //when we specify 0 for day it gives us last day of the previous month
-
           var lastDayOfMonth = beginningOfTheTimeFrame.month == 12 ?
           DateTime(beginningOfTheTimeFrame.year + 1, 1, 0) :
           DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
@@ -127,8 +130,11 @@ class StatsGraphTimeFrameHelper {
           }
           if (activitiesInSegment > maxActivitiesInSegment)
             maxActivitiesInSegment = activitiesInSegment;
-          beginningOfTheTimeFrame.add(
+
+          beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
+
+          if (beginningOfTheTimeFrame.month == 12) break;
         }
         break;
     }

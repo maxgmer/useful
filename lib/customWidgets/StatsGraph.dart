@@ -46,20 +46,20 @@ class _StatsGraphPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     //get beginning of the week time
-    //DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
-    //List<Activity> currentTimeFrameActivities = List<Activity>();
+    DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
+    List<Activity> currentTimeFrameActivities = List<Activity>();
     //get activities for chosen time frame
-    //for (Activity activity in activities) {
-    //  if (beginningOfTheTimeFrame.isBefore(DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal())) {
-    //    currentTimeFrameActivities.add(activity);
-    //  }
-    //}
-    //int maxReachedGraphValue = StatsGraphTimeFrameHelper.getBestActivitiesNumber(timeFrame, currentTimeFrameActivities, beginningOfTheTimeFrame);
+    for (Activity activity in activities) {
+      if (beginningOfTheTimeFrame.isBefore(DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal())) {
+        currentTimeFrameActivities.add(activity);
+      }
+    }
+    int maxReachedGraphValue = StatsGraphTimeFrameHelper.getBestActivitiesNumber(timeFrame, currentTimeFrameActivities, beginningOfTheTimeFrame);
 
-    //int graphValueHeight = maxReachedGraphValue + (maxReachedGraphValue / 3).ceil();
-    //graphValueHeight = graphValueHeight + (5 - graphValueHeight % 5);
+    int graphValueHeight = maxReachedGraphValue + (maxReachedGraphValue / 3).ceil();
+    graphValueHeight = graphValueHeight + (5 - (graphValueHeight % 5));
 
-    //int fifthOfGraphValueHeight = (graphValueHeight / 5).round();
+    int fifthOfGraphValueHeight = (graphValueHeight / 5).round();
 
     Paint paint = new Paint()
         ..strokeWidth = 1.0
@@ -80,7 +80,7 @@ class _StatsGraphPainter extends CustomPainter {
               fontSize: StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT,
               fontFamily: "Mali"
           ),
-          text: (i /* fifthOfGraphValueHeight*/).toString());
+          text: (i * fifthOfGraphValueHeight).toString());
       TextPainter activitiesAmount = TextPainter(text: span, textDirection: TextDirection.ltr);
       activitiesAmount.layout();
       activitiesAmount.paint(canvas, Offset(0.0, 10.0 + (i * fifthOfHeight)));
