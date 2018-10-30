@@ -58,7 +58,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                 ),
                               ),
                             );
-                          },
+                            },
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                     style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
                                 ),
                                 shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
-                                color: HomeScreenValues.getImproveButtonColor(pageId.data),
+                                color: HomeScreenValues.getPageAccentColor(pageId.data),
                                 splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
                                 onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
                               )
@@ -82,10 +82,12 @@ class _HomeScreenState extends State<StatefulWidget> {
                             return Padding(
                               padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
                               child: StatsGraph(
-                                activities.data,
-                                timeFrame: graphTimeFrame.data,
-                                graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
-                                    StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                                  activities.data,
+                                  pageId: pageId.data,
+                                  timeFrame: graphTimeFrame.data,
+                                  graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
+                                      StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                                  graphColor: HomeScreenValues.getPageAccentColor(pageId.data)
                               ),
                             );
                           },
@@ -96,7 +98,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                 ),
               )
           );
-        }
+        },
     );
   }
 }

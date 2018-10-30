@@ -6,10 +6,12 @@ import 'package:useful_app/util/WidgetValues.dart';
 
 class StatsGraph extends StatefulWidget {
 
-  StatsGraph(List<Activity> activities, {Color graphMarkupColor, StatsGraphTimeFrame timeFrame}) {
+  StatsGraph(List<Activity> activities, {Color graphMarkupColor, StatsGraphTimeFrame timeFrame, Color graphColor, int pageId}) {
+    _StatsGraphState.pageId = pageId;
     _StatsGraphState.activities = activities;
     _StatsGraphState.timeFrame = timeFrame;
     _StatsGraphState.graphMarkupColor = graphMarkupColor;
+    _StatsGraphState.graphColor = graphColor;
   }
 
   @override
@@ -21,12 +23,14 @@ class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
 
   static StatsGraphTimeFrame timeFrame;
   static Color graphMarkupColor;
+  static Color graphColor;
+  static int pageId;
 
   @override
   Widget build(BuildContext context) {
     return new CustomPaint(
       size: Size(0.0, StatsGraphValues.SIZE),
-      painter: _StatsGraphPainter(activities, timeFrame, graphMarkupColor),
+      painter: _StatsGraphPainter(activities, pageId, timeFrame, graphMarkupColor, graphColor),
     );
   }
 }
@@ -35,26 +39,27 @@ class _StatsGraphPainter extends CustomPainter {
   static const double _HEIGHT_SPACE_FOR_TEXT = 25.0;
 
   Animation animation;
-  Color lineColor;
-  Color roundColor;
   Color _graphMarkupColor;
+  Color _graphColor;
   StatsGraphTimeFrame timeFrame;
-  List<Activity> activities;
+  List<Activity> _activities;
+  int _pageId;
 
-  _StatsGraphPainter(this.activities, this.timeFrame, this._graphMarkupColor);
+  _StatsGraphPainter(this._activities, this._pageId, this.timeFrame, this._graphMarkupColor, this._graphColor);
 
   @override
   void paint(Canvas canvas, Size size) {
     //get beginning of the week time
     DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
-    List<Activity> currentTimeFrameActivities = List<Activity>();
+    List<Activity> completedCurrentTimeFrameActivities = List<Activity>();
     //get activities for chosen time frame
-    for (Activity activity in activities) {
-      if (beginningOfTheTimeFrame.isBefore(DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal())) {
-        currentTimeFrameActivities.add(activity);
+    for (Activity activity in _activities) {
+      if (beginningOfTheTimeFrame.isBefore(DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal())
+          && activity.activityCompleted && activity.pageId == _pageId) {
+        completedCurrentTimeFrameActivities.add(activity);
       }
     }
-    int maxReachedGraphValue = StatsGraphTimeFrameHelper.getBestActivitiesNumber(timeFrame, currentTimeFrameActivities, beginningOfTheTimeFrame);
+    int maxReachedGraphValue = StatsGraphTimeFrameHelper.getBestActivitiesNumber(timeFrame, completedCurrentTimeFrameActivities, beginningOfTheTimeFrame);
 
     int graphValueHeight = maxReachedGraphValue + (maxReachedGraphValue / 3).ceil();
     graphValueHeight = graphValueHeight + (5 - (graphValueHeight % 5));
@@ -62,7 +67,7 @@ class _StatsGraphPainter extends CustomPainter {
     int fifthOfGraphValueHeight = (graphValueHeight / 5).round();
 
     Paint paint = new Paint()
-        ..strokeWidth = 1.0
+        ..strokeWidth = StatsGraphValues.MARKUP_STROKE_WIDTH
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.fill;
 
@@ -90,6 +95,7 @@ class _StatsGraphPainter extends CustomPainter {
     }
 
     //draw graph data
+    paint.color = _graphColor;
 
   }
 

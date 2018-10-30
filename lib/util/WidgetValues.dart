@@ -32,7 +32,7 @@ class HomeScreenValues {
     throw "Unknown page ID";
   }
 
-  static Color getImproveButtonColor(int pageId) {
+  static Color getPageAccentColor(int pageId) {
     switch(pageId) {
       case 0: return Color.fromRGBO(235, 254, 169, 1.0);
       case 1: return Color.fromRGBO(222, 217, 169, 1.0);
@@ -109,4 +109,6 @@ class StatsGraphValues {
   static const double FONT_SIZE_HORIZONTAL_MARKUP_TEXT = 16.0;
 
   static const double SPACE_FOR_NUMBERS_SIZE = 35.0;
+
+  static const double MARKUP_STROKE_WIDTH = 1.0;
 }

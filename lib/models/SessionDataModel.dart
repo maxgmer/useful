@@ -3,7 +3,7 @@ import 'package:useful_app/models/Activity.dart';
 class SessionDataModel {
   SessionDataModel();
 
-  List<Activity> _activities = [Activity("Hello"), Activity("Hello"), Activity("Hello"), Activity("Hello"), Activity("Hello")];
+  List<Activity> _activities = List<Activity>();
   List<Activity> get activities => _activities;
   set activities(List<Activity> activities) => _activities = activities;
 
