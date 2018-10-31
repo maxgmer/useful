@@ -111,4 +111,8 @@ class StatsGraphValues {
   static const double SPACE_FOR_NUMBERS_SIZE = 35.0;
 
   static const double MARKUP_STROKE_WIDTH = 1.0;
+
+  static const double GRAPH_LINE_STROKE_WIDTH = 3.0;
+
+  static const double GRAPH_CIRCLE_RADIUS = 5.0;
 }

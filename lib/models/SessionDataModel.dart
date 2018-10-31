@@ -22,7 +22,7 @@ class StatsGraphTimeFrameHelper {
   static List<String> getStrings(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK: return ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
-      case StatsGraphTimeFrame.MONTH: return ["07", "14", "21", "28"];
+      case StatsGraphTimeFrame.MONTH: return ["01", "07", "14", "21", "28"];
       case StatsGraphTimeFrame.YEAR: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     }
     throw "Such timeframe does not exist!";
@@ -95,7 +95,9 @@ class StatsGraphTimeFrameHelper {
       case StatsGraphTimeFrame.MONTH:
         int maxActivitiesInSegment = 0;
         //when we specify 0 for day it gives us last day of the previous month
-        var lastDayOfMonth = DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
+        var lastDayOfMonth = beginningOfTheTimeFrame.month == 12 ?
+        DateTime(beginningOfTheTimeFrame.year + 1, 1, 0) :
+        DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
         while (true) {
           int activitiesInSegment = 0;
           for (Activity activity in currentTimeFrameActivities) {
@@ -140,6 +142,50 @@ class StatsGraphTimeFrameHelper {
         }
     }
     throw "Such timeframe does not exist";
+  }
+
+  //1 segment = 1 day for week and month, 10 days for year
+  static getNumberOfActivitiesPerSegment(List<Activity> activities, StatsGraphTimeFrame timeFrame, DateTime beginningOfTheTimeFrame) {
+    switch(timeFrame) {
+      case StatsGraphTimeFrame.WEEK:
+        List<int> numberOfActivitiesPerSegment = List<int>();
+        for (int i = 0; i < 7; i++) {
+          int activitiesInSegment = 0;
+          for (Activity activity in activities) {
+            if (DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal().isAfter(beginningOfTheTimeFrame)
+                &&
+                DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal()
+                    .isBefore(DateTime.fromMillisecondsSinceEpoch(beginningOfTheTimeFrame.millisecondsSinceEpoch + Duration.millisecondsPerDay)))
+              activitiesInSegment++;
+          }
+          numberOfActivitiesPerSegment.add(activitiesInSegment);
+
+          beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
+              Duration(days: 1));
+        }
+        return numberOfActivitiesPerSegment;
+      case StatsGraphTimeFrame.MONTH:
+        List<int> numberOfActivitiesPerSegment = List<int>();
+        //when we specify 0 for day it gives us last day of the previous month
+        var lastDayOfMonth = DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
+        for (int i = 0; i < lastDayOfMonth.day; i++) {
+          int activitiesInSegment = 0;
+          for (Activity activity in activities) {
+            if (DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal().isAfter(beginningOfTheTimeFrame)
+                &&
+                DateTime.fromMillisecondsSinceEpoch(activity.creationDate).toLocal()
+                    .isBefore(DateTime.fromMillisecondsSinceEpoch(beginningOfTheTimeFrame.millisecondsSinceEpoch + Duration.millisecondsPerDay)))
+              activitiesInSegment++;
+          }
+          numberOfActivitiesPerSegment.add(activitiesInSegment);
+
+          beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
+              Duration(days: 1));
+        }
+        return numberOfActivitiesPerSegment;
+      case StatsGraphTimeFrame.YEAR:
+        break;
+    }
   }
 }
 
