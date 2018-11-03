@@ -162,6 +162,7 @@ class _StatsGraphPainter extends CustomPainter {
     double segmentWidth = graphWidth / (activitiesPerSegment.length - 1);
     activitiesPerSegment = activitiesPerSegment.reversed.toList();
     while (true) {
+      if (activitiesPerSegment.length == 0) break;
       if (activitiesPerSegment[0] == 0) {
         activitiesPerSegment.removeAt(0);
       } else break;
