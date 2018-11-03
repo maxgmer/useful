@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:useful_app/util/ColorHelper.dart';
 
 /*
   Widget values, which are not connected to business logic
@@ -12,6 +13,7 @@ class HomeScreenValues {
 
   static const double LVL_TITLE_PADDING = 15.0;
   static const double IMPROVE_BUTTON_PADDING_TOP = 70.0;
+  static const double IMPROVE_BUTTON_PADDING_BOTTOM = 20.0;
 
   static const double PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double INSIDE_PAGE_DETAILS_ROW_PADDING = 10.0;
@@ -38,6 +40,16 @@ class HomeScreenValues {
       case 1: return Color.fromRGBO(222, 217, 169, 1.0);
       case 2: return Color.fromRGBO(255, 182, 169, 1.0);
       case 3: return Color.fromRGBO(179, 225, 255, 1.0);
+    }
+    throw "Unknown page ID";
+  }
+
+  static Color getGraphLineColor(int pageId) {
+    switch(pageId) {
+      case 0: return getPageAccentColor(pageId);
+      case 1: return ColorHelper.darken(getPageAccentColor(pageId), 30);
+      case 2: return Color.fromRGBO(180, 130, 130, 1.0);
+      case 3: return ColorHelper.addGreen(ColorHelper.darken(getPageAccentColor(pageId), 100), 50);
     }
     throw "Unknown page ID";
   }
@@ -105,6 +117,7 @@ class StatsGraphValues {
 
   static const double SIZE = 200.0;
 
+  static const double FONT_SIZE_HEADLINE = 12.0;
   static const double FONT_SIZE_VERTICAL_MARKUP_TEXT = 17.0;
   static const double FONT_SIZE_HORIZONTAL_MARKUP_TEXT = 16.0;
 
@@ -114,5 +127,5 @@ class StatsGraphValues {
 
   static const double GRAPH_LINE_STROKE_WIDTH = 3.0;
 
-  static const double GRAPH_CIRCLE_RADIUS = 5.0;
+  static const double GRAPH_CIRCLE_RADIUS = 3.0;
 }

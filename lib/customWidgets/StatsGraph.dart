@@ -20,6 +20,7 @@ class StatsGraph extends StatefulWidget {
 }
 
 class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
+
   static List<Activity> activities;
 
   static StatsGraphTimeFrame timeFrame;
@@ -72,6 +73,8 @@ class _StatsGraphPainter extends CustomPainter {
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.fill;
 
+    _drawHeadline(canvas, paint, size);
+
     //draw horizontal markup lines and text values
     _drawHorizontalMarkupAndValues(canvas, paint, size, fifthOfGraphValueHeight);
 
@@ -87,11 +90,11 @@ class _StatsGraphPainter extends CustomPainter {
     return false;
   }
 
-  TextPainter _getTextPainter(String text) {
+  TextPainter _getTextPainter(String text, double fontSize) {
     TextSpan span = TextSpan(
         style: TextStyle(
             color: Colors.black,
-            fontSize: StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT,
+            fontSize: fontSize,
             fontFamily: "Mali"
         ),
         text: (text));
@@ -107,7 +110,8 @@ class _StatsGraphPainter extends CustomPainter {
       canvas.drawLine(Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE, _HEIGHT_SPACE_FOR_TEXT + (i * fifthOfHeight)),
           Offset(size.width, _HEIGHT_SPACE_FOR_TEXT + (i * fifthOfHeight)), paint);
 
-      TextPainter text = _getTextPainter((graphValueMarkupBase * gapHeight).toString());
+      TextPainter text = _getTextPainter((graphValueMarkupBase * gapHeight).toString(),
+          StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
       text.paint(canvas,  Offset(0.0, 10.0 + (i * fifthOfHeight)));
     }
   }
@@ -122,7 +126,7 @@ class _StatsGraphPainter extends CustomPainter {
             Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * verticalMarkupLineGapWidth),
                 size.height - _HEIGHT_SPACE_FOR_TEXT), paint);
 
-        TextPainter text = _getTextPainter(dayNames[i]);
+        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
         text.paint(canvas,
             Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * verticalMarkupLineGapWidth) - text.width / 2,
                 size.height - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE / 2));
@@ -137,7 +141,7 @@ class _StatsGraphPainter extends CustomPainter {
             Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * graphWeekWidth),
                 size.height - _HEIGHT_SPACE_FOR_TEXT), paint);
 
-        TextPainter text = _getTextPainter(dayNames[i]);
+        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
         text.paint(canvas,
             Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * graphWeekWidth) - text.width / 2,
                 size.height - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE / 2));
@@ -173,5 +177,23 @@ class _StatsGraphPainter extends CustomPainter {
           Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + ((i + 1) * segmentWidth),
               graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.GRAPH_CIRCLE_RADIUS, paint);
     }
+  }
+
+  void _drawHeadline(Canvas canvas, Paint paint, Size size) {
+    TextPainter text;
+    switch(timeFrame) {
+      case StatsGraphTimeFrame.WEEK:
+        text = _getTextPainter("Activities completed during the current week", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+      case StatsGraphTimeFrame.MONTH:
+        text = _getTextPainter("Activities completed during the current month", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+      case StatsGraphTimeFrame.YEAR:
+        text = _getTextPainter("Activities completed during the current year", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+    }
+    if (text == null) throw "Such time frame does not exist!";
+
+    text.paint(canvas, Offset((StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 - text.width / 2, 0.0));
   }
 }

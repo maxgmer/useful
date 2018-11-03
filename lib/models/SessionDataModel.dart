@@ -12,7 +12,7 @@ class SessionDataModel {
   int get pageId => _pageId;
   set pageId(pageId) => _pageId = pageId;
 
-  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.YEAR;
+  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.WEEK;
   StatsGraphTimeFrame get graphTimeFrame => _graphTimeFrame;
   set graphTimeFrame(graphTimeFrame) => _graphTimeFrame;
 }
@@ -20,6 +20,11 @@ class SessionDataModel {
 
 //need to move these somewhere else (IDE does not support that atm, too lazy to do that manually xD)
 class StatsGraphTimeFrameHelper {
+  static StatsGraphTimeFrame getNextTimeFrame(StatsGraphTimeFrame currentTimeFrame) {
+    List<StatsGraphTimeFrame> timeFrames = StatsGraphTimeFrame.values;
+    return timeFrames[(currentTimeFrame.index + 1) % timeFrames.length];
+  }
+
   static List<String> getStrings(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK: return ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];

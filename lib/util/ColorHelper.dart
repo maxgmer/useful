@@ -13,4 +13,30 @@ class ColorHelper {
         colorToDarken.opacity
     );
   }
+
+  static Color lighten(Color colorToLighten, int lightenValue) {
+    int newRed = colorToLighten.red + lightenValue;
+    int newGreen = colorToLighten.green + lightenValue;
+    int newBlue = colorToLighten.blue + lightenValue;
+    return Color.fromRGBO(
+        newRed > 255 ? 255 : newRed,
+        newGreen > 255 ? 255 : newGreen,
+        newBlue > 255 ? 255 : newBlue,
+        colorToLighten.opacity
+    );
+  }
+
+  static Color addRed(Color pageAccentColor, int redToAdd) => Color.fromRGBO(
+      pageAccentColor.red + redToAdd > 255 ? 255 : pageAccentColor.red + redToAdd,
+      pageAccentColor.green, pageAccentColor.blue, pageAccentColor.opacity);
+
+
+  static Color addGreen(Color pageAccentColor, int greenToAdd) => Color.fromRGBO(pageAccentColor.red,
+      pageAccentColor.green + greenToAdd > 255 ? 255 : pageAccentColor.green + greenToAdd,
+      pageAccentColor.blue, pageAccentColor.opacity);
+
+  static Color addBlue(Color pageAccentColor, int blueToAdd) => Color.fromRGBO(
+      pageAccentColor.red, pageAccentColor.green,
+      pageAccentColor.blue + blueToAdd > 255 ? 255 : pageAccentColor.blue + blueToAdd,
+      pageAccentColor.opacity);
 }

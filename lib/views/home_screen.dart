@@ -61,7 +61,8 @@ class _HomeScreenState extends State<StatefulWidget> {
                             },
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP),
+                          padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP,
+                              bottom: HomeScreenValues.IMPROVE_BUTTON_PADDING_BOTTOM),
                           child: Center(
                               child: RaisedButton(
                                 child: Text(
@@ -79,15 +80,18 @@ class _HomeScreenState extends State<StatefulWidget> {
                           stream: homeScreenBloc.timeFrame,
                           initialData: homeScreenBloc.initialTimeFrame,
                           builder: (context, graphTimeFrame) {
-                            return Padding(
-                              padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
-                              child: StatsGraph(
-                                  activities.data,
-                                  pageId: pageId.data,
-                                  timeFrame: graphTimeFrame.data,
-                                  graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
-                                      StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
-                                  graphColor: HomeScreenValues.getPageAccentColor(pageId.data)
+                            return GestureDetector(
+                              onTapUp: (tapDetails) => homeScreenBloc.timeFrameSink.add(StatsGraphTimeFrameHelper.getNextTimeFrame(graphTimeFrame.data)),
+                              child: Padding(
+                                padding: EdgeInsets.only(top: StatsGraphValues.PADDING_TOP),
+                                child: StatsGraph(
+                                    activities.data,
+                                    pageId: pageId.data,
+                                    timeFrame: graphTimeFrame.data,
+                                    graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
+                                        StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
+                                    graphColor: HomeScreenValues.getGraphLineColor(pageId.data)
+                                ),
                               ),
                             );
                           },
