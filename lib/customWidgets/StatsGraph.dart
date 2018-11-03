@@ -160,6 +160,13 @@ class _StatsGraphPainter extends CustomPainter {
     double graphWidth = size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE;
     double onePercentOfHeight = graphHeight / 100;
     double segmentWidth = graphWidth / (activitiesPerSegment.length - 1);
+    activitiesPerSegment = activitiesPerSegment.reversed.toList();
+    while (true) {
+      if (activitiesPerSegment[0] == 0) {
+        activitiesPerSegment.removeAt(0);
+      } else break;
+    }
+    activitiesPerSegment = activitiesPerSegment.reversed.toList();
     for (int i = 0; i < activitiesPerSegment.length - 1; i++) {
       double currentPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i])) / graphValueHeight * 100;
       double nextPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i + 1])) / graphValueHeight * 100;
