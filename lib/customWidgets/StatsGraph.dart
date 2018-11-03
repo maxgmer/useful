@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
+import 'package:useful_app/util/DateHelper.dart';
 import 'package:useful_app/util/WidgetValues.dart';
 
 class StatsGraph extends StatefulWidget {
@@ -74,7 +75,6 @@ class _StatsGraphPainter extends CustomPainter {
     //draw horizontal markup lines and text values
     _drawHorizontalMarkupAndValues(canvas, paint, size, fifthOfGraphValueHeight);
 
-
     //draw vertical markup lines and values
     _drawVerticalMarkupAndValues(canvas, paint, size, beginningOfTheTimeFrame);
 
@@ -128,12 +128,8 @@ class _StatsGraphPainter extends CustomPainter {
                 size.height - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE / 2));
       }
     } else {
-      //when we specify 0 for day it gives us last day of the previous month
-      var lastDayOfMonth = beginningOfTheTimeFrame.month == 12 ?
-      DateTime(beginningOfTheTimeFrame.year + 1, 1, 0) :
-      DateTime(beginningOfTheTimeFrame.year, beginningOfTheTimeFrame.month + 1, 0);
-
-      double graphDayWidth = (size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE) / (lastDayOfMonth.day - 1);
+      int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
+      double graphDayWidth = (size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE) / (daysInMonth - 1);
       double graphWeekWidth = graphDayWidth * 7;
       for (int i = 0; i < dayNames.length; i++) {
         canvas.drawLine(
