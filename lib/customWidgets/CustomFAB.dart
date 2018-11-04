@@ -6,8 +6,9 @@ import 'package:useful_app/util/WidgetValues.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
 
-  CustomFloatingActionButton(Function onClick) {
+  CustomFloatingActionButton(Function onClick, int pageId) {
     _CustomFABState.onClick = onClick;
+    _CustomFABState.pageId = pageId;
   }
 
   @override
@@ -41,6 +42,8 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   _topRightX = 0.0, _topRightY = 0.0,
   _bottomLeftX = 0.0, _bottomLeftY = 0.0,
   _bottomRightX = 0.0, _bottomRightY = 0.0;
+
+  static int pageId;
 
   static Function _onClick;
   static set onClick(Function onClick) => _onClick = onClick;
@@ -84,14 +87,13 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
           bottom: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM) :
           ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM)) + CustomFABValues.MIN_PADDING_BOTTOM),
       child: RaisedButton(
-        color: HomeScreenValues.getFABColor(animation.value),
+        color: HomeScreenValues.getFABColor(animation.value, pageId),
         splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
         padding: EdgeInsets.only(
             top: CustomFABValues.SIZE,
             bottom: CustomFABValues.SIZE,
             right: CustomFABValues.SIZE / 2,
             left: CustomFABValues.SIZE / 2),
-        highlightColor: HomeScreenValues.getFABOnPressedColor(),
         elevation: animation.value * CustomFABValues.MAX_ELEVATION,
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.only(

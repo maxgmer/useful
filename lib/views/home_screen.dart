@@ -29,7 +29,7 @@ class _HomeScreenState extends State<StatefulWidget> {
         initialData: homeScreenBloc.initialPageId,
         builder: (context, pageId) {
           return Scaffold(
-              floatingActionButton: CustomFloatingActionButton(() => homeScreenBloc.pageIdSink.add(pageId.data + 1)),
+              floatingActionButton: CustomFloatingActionButton(() => homeScreenBloc.pageIdSink.add(pageId.data + 1), pageId.data),
               body: Container(
                 padding: EdgeInsets.all(HomeScreenValues.SCREEN_PADDING),
                 color: HomeScreenValues.getBackgroundColor(pageId.data),

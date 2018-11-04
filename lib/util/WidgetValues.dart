@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 
 /*
@@ -69,8 +70,7 @@ class HomeScreenValues {
     throw "Unknown page ID";
   }
 
-  static getFABColor(double value) => Color.lerp(getFABOnPressedColor(), Color.fromRGBO(248, 169, 54, 1.0), value); //smoothly interpolates from pressed to main
-  static getFABOnPressedColor() => Color.fromRGBO(174, 95, 0, 1.0);
+  static getFABColor(double value, int pageId) => getBackgroundColor((pageId + 1) % (MAX_PAGE_ID + 1));
 }
 
 
@@ -133,6 +133,15 @@ class StatsGraphValues {
   static const double GRAPH_LINE_STROKE_WIDTH = 3.0;
 
   static const double GRAPH_CIRCLE_RADIUS = 3.0;
+
+  static String getGraphHeadlineString(StatsGraphTimeFrame timeFrame) {
+    switch(timeFrame) {
+      case StatsGraphTimeFrame.WEEK: return "Activities completed during the current week";
+      case StatsGraphTimeFrame.MONTH: return "Activities completed during the current month";
+      case StatsGraphTimeFrame.YEAR: return "Activities completed during the current year";
+    }
+    throw "Unknown page ID";
+  }
 }
 
 class ActivityButtonValues {
@@ -148,6 +157,6 @@ class ActivityButtonValues {
       case 2: return "Express love!";
       case 3: return "Find happiness!";
     }
-    return "Improve health!";
+    throw "Unknown page ID";
   }
 }

@@ -108,21 +108,13 @@ class _StatsGraphPainter extends CustomPainter {
   }
 
   void _drawHeadline(Canvas canvas, Paint paint, Size size) {
-    TextPainter text;
-    switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK:
-        text = _getTextPainter("Activities completed during the current week", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-      case StatsGraphTimeFrame.MONTH:
-        text = _getTextPainter("Activities completed during the current month", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-      case StatsGraphTimeFrame.YEAR:
-        text = _getTextPainter("Activities completed during the current year", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-    }
-    if (text == null) throw "Such time frame does not exist!";
+    TextPainter text = _getTextPainter(
+        StatsGraphValues.getGraphHeadlineString(timeFrame),
+        StatsGraphValues.FONT_SIZE_HEADLINE);
 
-    text.paint(canvas, Offset((StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 - text.width / 2, 0.0));
+    text.paint(canvas, Offset(
+        (StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 -
+            text.width / 2, 0.0));
   }
 
   void _drawHorizontalMarkupAndValues(Canvas canvas, Paint paint, Size size, int gapHeight) {
