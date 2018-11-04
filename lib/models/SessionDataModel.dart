@@ -80,6 +80,7 @@ class StatsGraphTimeFrameHelper {
     switch(timeFrame) {
       case StatsGraphTimeFrame.WEEK:
         int maxActivitiesInSegment = 0;
+        bool lastCycleIteration = false;
         while (true) {
           int activitiesInSegment = 0;
           for (Activity activity in currentTimeFrameActivities) {
@@ -95,12 +96,15 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
 
-          if (beginningOfTheTimeFrame.weekday == 7) return maxActivitiesInSegment;
+
+          if (lastCycleIteration) return maxActivitiesInSegment;
+          if (beginningOfTheTimeFrame.weekday == 7) lastCycleIteration = true;
         }
         break;
       case StatsGraphTimeFrame.MONTH:
         int maxActivitiesInSegment = 0;
         int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
+        bool lastCycleIteration = false;
         while (true) {
           int activitiesInSegment = 0;
           for (Activity activity in currentTimeFrameActivities) {
@@ -116,11 +120,14 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
 
-          if (beginningOfTheTimeFrame.day == daysInMonth) return maxActivitiesInSegment;
+
+          if (lastCycleIteration) return maxActivitiesInSegment;
+          if (beginningOfTheTimeFrame.day == daysInMonth) lastCycleIteration = true;
         }
         break;
       case StatsGraphTimeFrame.YEAR:
         int maxActivitiesInSegment = 0;
+        bool lastCycleIteration = false;
         while (true) {
           int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
 
@@ -138,7 +145,8 @@ class StatsGraphTimeFrameHelper {
           beginningOfTheTimeFrame = beginningOfTheTimeFrame.add(
               Duration(days: 1));
 
-          if (beginningOfTheTimeFrame.month == 12) return maxActivitiesInSegment;
+          if (lastCycleIteration) return maxActivitiesInSegment;
+          if (beginningOfTheTimeFrame.month == 12) lastCycleIteration = true;
         }
     }
     throw "Such timeframe does not exist";

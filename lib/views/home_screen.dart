@@ -58,20 +58,20 @@ class _HomeScreenState extends State<StatefulWidget> {
                                 ),
                               ),
                             );
-                            },
+                          },
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: HomeScreenValues.IMPROVE_BUTTON_PADDING_TOP,
-                              bottom: HomeScreenValues.IMPROVE_BUTTON_PADDING_BOTTOM),
+                          padding: EdgeInsets.only(top: ActivityButtonValues.ACTIVITY_BUTTON_PADDING_TOP,
+                              bottom: ActivityButtonValues.ACTIVITY_BUTTON_PADDING_BOTTOM),
                           child: Center(
                               child: RaisedButton(
                                 child: Text(
-                                    homeScreenBloc.getImproveButtonString(pageId.data),
-                                    style: TextStyle(fontSize: HomeScreenValues.IMPROVE_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
+                                    ActivityButtonValues.getActivityButtonString(pageId.data),
+                                    style: TextStyle(fontSize: ActivityButtonValues.ACTIVITY_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
                                 ),
-                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(HomeScreenValues.IMPROVE_BUTTON_CLIP_RADIUS))),
+                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(ActivityButtonValues.ACTIVITY_BUTTON_CLIP_RADIUS))),
                                 color: HomeScreenValues.getPageAccentColor(pageId.data),
-                                splashColor: HomeScreenValues.getImproveButtonSplashColor(pageId.data),
+                                splashColor: HomeScreenValues.getActivityButtonSplashColor(pageId.data),
                                 onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
                               )
                           ),
@@ -90,7 +90,8 @@ class _HomeScreenState extends State<StatefulWidget> {
                                     timeFrame: graphTimeFrame.data,
                                     graphMarkupColor: ColorHelper.darken(HomeScreenValues.getBackgroundColor(pageId.data),
                                         StatsGraphValues.MARKUP_COLOR_DARKEN_VALUE),
-                                    graphColor: HomeScreenValues.getGraphLineColor(pageId.data)
+                                    graphLineColor: HomeScreenValues.getGraphLineColor(pageId.data),
+                                    graphCircleColor: HomeScreenValues.getGraphCircleColor(pageId.data)
                                 ),
                               ),
                             );

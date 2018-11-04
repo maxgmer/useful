@@ -61,16 +61,6 @@ class HomeScreenBloc {
     return healthLvl;
   }
 
-  String getImproveButtonString(int currentPageId) {
-    switch(currentPageId) {
-      case 0: return "Improve health!";
-      case 1: return "Become wealthy!";
-      case 2: return "Express love!";
-      case 3: return "Find happiness!";
-    }
-    return "Improve health!";
-  }
-
   void dispose() {
     _healthLvlController.close();
     _wealthLvlController.close();

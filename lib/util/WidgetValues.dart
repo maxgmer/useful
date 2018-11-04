@@ -12,17 +12,12 @@ class HomeScreenValues {
   static const double SCREEN_PADDING = 30.0;
 
   static const double LVL_TITLE_PADDING = 15.0;
-  static const double IMPROVE_BUTTON_PADDING_TOP = 70.0;
-  static const double IMPROVE_BUTTON_PADDING_BOTTOM = 20.0;
 
   static const double PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double INSIDE_PAGE_DETAILS_ROW_PADDING = 10.0;
   static const double PAGE_DETAILS_ROW_IMG_DIMS = 48.0;
 
   static const double LVL_TITLE_FONT_SIZE = 25.0;
-  static const double IMPROVE_BUTTON_FONT_SIZE = 24.0;
-
-  static const double IMPROVE_BUTTON_CLIP_RADIUS = 10.0;
 
   static Color getBackgroundColor(int pageId) {
     switch(pageId) {
@@ -54,7 +49,17 @@ class HomeScreenValues {
     throw "Unknown page ID";
   }
 
-  static Color getImproveButtonSplashColor(int pageId) {
+  static getGraphCircleColor(int pageId) {
+    switch(pageId) {
+      case 0: return ColorHelper.darken(getGraphLineColor(pageId), 50);
+      case 1: return ColorHelper.darken(getGraphLineColor(pageId), 60);
+      case 2: return ColorHelper.darken(getGraphLineColor(pageId), 60);
+      case 3: return ColorHelper.darken(getGraphLineColor(pageId), 60);
+    }
+    throw "Unknown page ID";
+  }
+
+  static Color getActivityButtonSplashColor(int pageId) {
     switch(pageId) {
       case 0: return Color.fromRGBO(132, 188, 74, 1.0);
       case 1: return Colors.brown;
@@ -128,4 +133,21 @@ class StatsGraphValues {
   static const double GRAPH_LINE_STROKE_WIDTH = 3.0;
 
   static const double GRAPH_CIRCLE_RADIUS = 3.0;
+}
+
+class ActivityButtonValues {
+  static const double ACTIVITY_BUTTON_PADDING_TOP = 70.0;
+  static const double ACTIVITY_BUTTON_PADDING_BOTTOM = 20.0;
+  static const double ACTIVITY_BUTTON_FONT_SIZE = 24.0;
+  static const double ACTIVITY_BUTTON_CLIP_RADIUS = 10.0;
+
+  static String getActivityButtonString(int currentPageId) {
+    switch(currentPageId) {
+      case 0: return "Improve health!";
+      case 1: return "Become wealthy!";
+      case 2: return "Express love!";
+      case 3: return "Find happiness!";
+    }
+    return "Improve health!";
+  }
 }

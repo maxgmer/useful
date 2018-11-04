@@ -7,12 +7,13 @@ import 'package:useful_app/util/WidgetValues.dart';
 
 class StatsGraph extends StatefulWidget {
 
-  StatsGraph(List<Activity> activities, {Color graphMarkupColor, StatsGraphTimeFrame timeFrame, Color graphColor, int pageId}) {
+  StatsGraph(List<Activity> activities, {Color graphMarkupColor, StatsGraphTimeFrame timeFrame, Color graphLineColor, Color graphCircleColor, int pageId}) {
     _StatsGraphState.pageId = pageId;
     _StatsGraphState.activities = activities;
     _StatsGraphState.timeFrame = timeFrame;
     _StatsGraphState.graphMarkupColor = graphMarkupColor;
-    _StatsGraphState.graphColor = graphColor;
+    _StatsGraphState.graphLineColor = graphLineColor;
+    _StatsGraphState.graphCircleColor = graphCircleColor;
   }
 
   @override
@@ -25,14 +26,15 @@ class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
 
   static StatsGraphTimeFrame timeFrame;
   static Color graphMarkupColor;
-  static Color graphColor;
+  static Color graphLineColor;
+  static Color graphCircleColor;
   static int pageId;
 
   @override
   Widget build(BuildContext context) {
     return new CustomPaint(
       size: Size(0.0, StatsGraphValues.SIZE),
-      painter: _StatsGraphPainter(activities, pageId, timeFrame, graphMarkupColor, graphColor),
+      painter: _StatsGraphPainter(activities, pageId, timeFrame, graphMarkupColor, graphLineColor, graphCircleColor),
     );
   }
 }
@@ -43,11 +45,13 @@ class _StatsGraphPainter extends CustomPainter {
   Animation animation;
   Color _graphMarkupColor;
   Color _graphColor;
+  Color _graphCircleColor;
   StatsGraphTimeFrame timeFrame;
   List<Activity> _activities;
   int _pageId;
 
-  _StatsGraphPainter(this._activities, this._pageId, this.timeFrame, this._graphMarkupColor, this._graphColor);
+
+  _StatsGraphPainter(this._activities, this._pageId, this.timeFrame, this._graphMarkupColor, this._graphColor, this._graphCircleColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -103,6 +107,24 @@ class _StatsGraphPainter extends CustomPainter {
     return activitiesAmount;
   }
 
+  void _drawHeadline(Canvas canvas, Paint paint, Size size) {
+    TextPainter text;
+    switch(timeFrame) {
+      case StatsGraphTimeFrame.WEEK:
+        text = _getTextPainter("Activities completed during the current week", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+      case StatsGraphTimeFrame.MONTH:
+        text = _getTextPainter("Activities completed during the current month", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+      case StatsGraphTimeFrame.YEAR:
+        text = _getTextPainter("Activities completed during the current year", StatsGraphValues.FONT_SIZE_HEADLINE);
+        break;
+    }
+    if (text == null) throw "Such time frame does not exist!";
+
+    text.paint(canvas, Offset((StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 - text.width / 2, 0.0));
+  }
+
   void _drawHorizontalMarkupAndValues(Canvas canvas, Paint paint, Size size, int gapHeight) {
     paint.color = _graphMarkupColor;
     double fifthOfHeight = (size.height - (_HEIGHT_SPACE_FOR_TEXT * 2 /*2 because for bottom and top*/)) / 5;
@@ -150,7 +172,6 @@ class _StatsGraphPainter extends CustomPainter {
   }
 
   void _drawGraph(Canvas canvas, Paint paint, Size size, List<Activity> completedCurrentTimeFrameActivities, int graphValueHeight) {
-    paint.color = _graphColor;
     paint.strokeWidth = StatsGraphValues.GRAPH_LINE_STROKE_WIDTH;
 
     DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
@@ -169,6 +190,7 @@ class _StatsGraphPainter extends CustomPainter {
     }
     activitiesPerSegment = activitiesPerSegment.reversed.toList();
     for (int i = 0; i < activitiesPerSegment.length - 1; i++) {
+      paint.color = _graphColor;
       double currentPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i])) / graphValueHeight * 100;
       double nextPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i + 1])) / graphValueHeight * 100;
       canvas.drawLine(
@@ -178,6 +200,7 @@ class _StatsGraphPainter extends CustomPainter {
               graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT),
           paint);
 
+      paint.color = _graphCircleColor;
       canvas.drawCircle(
           Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * segmentWidth),
               graphHeight - (onePercentOfHeight * currentPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.GRAPH_CIRCLE_RADIUS, paint);
@@ -185,23 +208,5 @@ class _StatsGraphPainter extends CustomPainter {
           Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + ((i + 1) * segmentWidth),
               graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.GRAPH_CIRCLE_RADIUS, paint);
     }
-  }
-
-  void _drawHeadline(Canvas canvas, Paint paint, Size size) {
-    TextPainter text;
-    switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK:
-        text = _getTextPainter("Activities completed during the current week", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-      case StatsGraphTimeFrame.MONTH:
-        text = _getTextPainter("Activities completed during the current month", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-      case StatsGraphTimeFrame.YEAR:
-        text = _getTextPainter("Activities completed during the current year", StatsGraphValues.FONT_SIZE_HEADLINE);
-        break;
-    }
-    if (text == null) throw "Such time frame does not exist!";
-
-    text.paint(canvas, Offset((StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 - text.width / 2, 0.0));
   }
 }
