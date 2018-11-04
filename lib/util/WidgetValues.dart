@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 
@@ -150,12 +151,12 @@ class ActivityButtonValues {
   static const double ACTIVITY_BUTTON_FONT_SIZE = 24.0;
   static const double ACTIVITY_BUTTON_CLIP_RADIUS = 10.0;
 
-  static String getActivityButtonString(int currentPageId) {
+  static String getActivityButtonString(int currentPageId, List<Activity> activities) {
     switch(currentPageId) {
-      case 0: return "Improve health!";
-      case 1: return "Become wealthy!";
-      case 2: return "Express love!";
-      case 3: return "Find happiness!";
+      case 0: return activities.length == 0 ? "Improve health!" : "View health tasks";
+      case 1: return activities.length == 0 ? "Become wealthy!" : "View wealth tasks";
+      case 2: return activities.length == 0 ? "Express love!" : "View love tasks";
+      case 3: return activities.length == 0 ? "Find happiness!" : "View happiness tasks";
     }
     throw "Unknown page ID";
   }

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
-import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
 import 'package:useful_app/customWidgets/BreathingImage.dart';
-import 'dart:math';
-
 import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
-import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
@@ -66,7 +62,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                           child: Center(
                               child: RaisedButton(
                                 child: Text(
-                                    ActivityButtonValues.getActivityButtonString(pageId.data),
+                                    ActivityButtonValues.getActivityButtonString(pageId.data, activities.data),
                                     style: TextStyle(fontSize: ActivityButtonValues.ACTIVITY_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
                                 ),
                                 shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(ActivityButtonValues.ACTIVITY_BUTTON_CLIP_RADIUS))),
