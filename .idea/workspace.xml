@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="edb182c9-f090-48c8-867b-8b90787675ee" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart" afterPath="$PROJECT_DIR$/lib/blocs/HomeScreen/HomeScreenBloc.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart" afterPath="$PROJECT_DIR$/lib/customWidgets/StatsGraph.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/models/SessionDataModel.dart" afterPath="$PROJECT_DIR$/lib/models/SessionDataModel.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/util/WidgetValues.dart" afterPath="$PROJECT_DIR$/lib/util/WidgetValues.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/views/home_screen.dart" afterPath="$PROJECT_DIR$/lib/views/home_screen.dart" />
+      <change beforePath="$PROJECT_DIR$/assets/images/1.5x/graphIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/assets/images/2.0x/graphIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/assets/images/3.0x/graphIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/assets/images/4.0x/graphIcon.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/assets/images/graphIcon.png" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -82,8 +81,8 @@
       <file leaf-file-name="SessionDataModel.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/models/SessionDataModel.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="205" column="45" lean-forward="false" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+            <state relative-caret-position="275">
+              <caret line="203" column="36" lean-forward="true" selection-start-line="203" selection-start-column="36" selection-end-line="203" selection-end-column="36" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -681,8 +680,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/SessionDataModel.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="205" column="45" lean-forward="false" selection-start-line="205" selection-start-column="45" selection-end-line="205" selection-end-column="45" />
+        <state relative-caret-position="275">
+          <caret line="203" column="36" lean-forward="true" selection-start-line="203" selection-start-column="36" selection-end-line="203" selection-end-column="36" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
