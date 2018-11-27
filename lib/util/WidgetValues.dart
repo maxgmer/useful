@@ -152,11 +152,19 @@ class ActivityButtonValues {
   static const double ACTIVITY_BUTTON_CLIP_RADIUS = 10.0;
 
   static String getActivityButtonString(int currentPageId, List<Activity> activities) {
+    bool hasActivitiesForPage = false;
+    activities.forEach(
+            (activity) => hasActivitiesForPage |= (activity.pageId == currentPageId && !activity.activityCompleted)
+    );
     switch(currentPageId) {
-      case 0: return activities.length == 0 ? "Improve health!" : "View health tasks";
-      case 1: return activities.length == 0 ? "Become wealthy!" : "View wealth tasks";
-      case 2: return activities.length == 0 ? "Express love!" : "View love tasks";
-      case 3: return activities.length == 0 ? "Find happiness!" : "View happiness tasks";
+      case 0:
+        return hasActivitiesForPage ? "View health tasks" : "Improve health!";
+      case 1:
+        return hasActivitiesForPage ? "View wealth tasks" : "Become wealthy!";
+      case 2:
+        return hasActivitiesForPage ? "View love tasks" : "Express love!";
+      case 3:
+        return hasActivitiesForPage ? "View happiness tasks" : "Find happiness!";
     }
     throw "Unknown page ID";
   }

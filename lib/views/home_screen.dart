@@ -68,7 +68,9 @@ class _HomeScreenState extends State<StatefulWidget> {
                                 shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(ActivityButtonValues.ACTIVITY_BUTTON_CLIP_RADIUS))),
                                 color: HomeScreenValues.getPageAccentColor(pageId.data),
                                 splashColor: HomeScreenValues.getActivityButtonSplashColor(pageId.data),
-                                onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
+                                onPressed: () {
+                                  homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data));
+                                },
                               )
                           ),
                         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class Activity {
 
   Activity(this._message, this._pageId) {
@@ -22,7 +24,7 @@ class Activity {
 class ActivityFactory {
   static List<Activity> createActivity(List<Activity> activities, int pageId) {
     var activity = Activity("Do 10 pushups", pageId);
-    activity.activityCompleted = true;
+    activity.activityCompleted = Random().nextBool();
     activities.add(activity);
     return activities;
   }
