@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:rxdart/subjects.dart';
+import 'package:useful_app/blocs/BaseBloc.dart';
 import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/models/UserDataModel.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/WidgetValues.dart';
 
@@ -12,14 +12,13 @@ class HomeScreenBloc {
   final initialLvlHeaderText = "Health lvl: loading..";
   final initialTimeFrame = StatsGraphTimeFrame.WEEK;
 
-  final SessionDataModel _sessionData = SessionDataModel();
-  final UserDataModel _userData = UserDataModel();
+  final BaseBloc baseBloc;
 
 
-  HomeScreenBloc() {
-    _initHomeScreenWidgets();
-    timeFrame.listen((statsGraphTimeFrame) => _sessionData.graphTimeFrame = statsGraphTimeFrame);
-    activities.listen((activities) => _sessionData.activities = activities);
+  HomeScreenBloc(this.baseBloc) {
+    _initHomeScreenControllers();
+    timeFrame.listen((statsGraphTimeFrame) => baseBloc.sessionData.graphTimeFrame = statsGraphTimeFrame);
+    activities.listen((activities) => baseBloc.sessionData.activities = activities);
   }
 
   //read only for view, so we expose only Streams from these controllers
@@ -77,14 +76,14 @@ class HomeScreenBloc {
   int StreamBuilders as I think it is also a part of
   business logic.
   */
-  void _initHomeScreenWidgets() {
-    _healthLvlController.add(_userData.healthLvl);
-    _wealthLvlController.add(_userData.wealthLvl);
-    _loveLvlController.add(_userData.loveLvl);
-    _happinessLvlController.add(_userData.happinessLvl);
-    timeFrameSink.add(_sessionData.graphTimeFrame);
-    activitiesSink.add(_sessionData.activities);
-    pageIdSink.add(_sessionData.pageId);
+  void _initHomeScreenControllers() {
+    _healthLvlController.add(baseBloc.userData.healthLvl);
+    _wealthLvlController.add(baseBloc.userData.wealthLvl);
+    _loveLvlController.add(baseBloc.userData.loveLvl);
+    _happinessLvlController.add(baseBloc.userData.happinessLvl);
+    timeFrameSink.add(baseBloc.sessionData.graphTimeFrame);
+    activitiesSink.add(baseBloc.sessionData.activities);
+    pageIdSink.add(baseBloc.sessionData.pageId);
   }
 
   //Does not let user change to non-existent page
@@ -112,7 +111,7 @@ class HomeScreenBloc {
         pageId = HomeScreenValues.MAX_PAGE_ID;
         pageIdSink.add(pageId);
       }
-      _sessionData.pageId = pageId;
+      baseBloc.sessionData.pageId = pageId;
 
       return pageId;
     });

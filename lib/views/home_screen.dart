@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
+import 'package:useful_app/blocs/Providers.dart';
 import 'package:useful_app/customWidgets/BreathingImage.dart';
 import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
@@ -7,6 +7,7 @@ import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/views/activities_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final homeScreenBloc = HomeScreenProvider.getBloc(context);
+    final homeScreenBloc = Providers.getHomeScreenBloc(context);
     return StreamBuilder<int>(
         stream: homeScreenBloc.pageId,
         initialData: homeScreenBloc.initialPageId,
@@ -69,7 +70,15 @@ class _HomeScreenState extends State<StatefulWidget> {
                                 color: HomeScreenValues.getPageAccentColor(pageId.data),
                                 splashColor: HomeScreenValues.getActivityButtonSplashColor(pageId.data),
                                 onPressed: () {
-                                  homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data));
+                                  bool hasActivitiesForPage = false;
+                                  activities.data.forEach(
+                                          (activity) => hasActivitiesForPage |= (activity.pageId == pageId.data && !activity.activityCompleted)
+                                  );
+                                  if (!hasActivitiesForPage) {
+                                    homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data));
+                                  } else {
+                                    Navigator.of(context).pushNamed(ActivitiesScreen.TAG);
+                                  }
                                 },
                               )
                           ),
