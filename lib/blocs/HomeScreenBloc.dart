@@ -12,13 +12,14 @@ class HomeScreenBloc {
   final initialLvlHeaderText = "Health lvl: loading..";
   final initialTimeFrame = StatsGraphTimeFrame.WEEK;
 
-  final BaseBloc baseBloc;
+  final BaseBloc _baseBloc;
 
 
-  HomeScreenBloc(this.baseBloc) {
+  HomeScreenBloc(this._baseBloc) {
     _initHomeScreenControllers();
-    timeFrame.listen((statsGraphTimeFrame) => baseBloc.sessionData.graphTimeFrame = statsGraphTimeFrame);
-    activities.listen((activities) => baseBloc.sessionData.activities = activities);
+    timeFrame.listen((statsGraphTimeFrame) => _baseBloc.sessionData.graphTimeFrame = statsGraphTimeFrame);
+    activities.listen((activities) => _baseBloc.sessionData.activities = activities);
+    pageId.listen((pageId) => _baseBloc.sessionData.pageId = pageId);
   }
 
   //read only for view, so we expose only Streams from these controllers
@@ -77,13 +78,13 @@ class HomeScreenBloc {
   business logic.
   */
   void _initHomeScreenControllers() {
-    _healthLvlController.add(baseBloc.userData.healthLvl);
-    _wealthLvlController.add(baseBloc.userData.wealthLvl);
-    _loveLvlController.add(baseBloc.userData.loveLvl);
-    _happinessLvlController.add(baseBloc.userData.happinessLvl);
-    timeFrameSink.add(baseBloc.sessionData.graphTimeFrame);
-    activitiesSink.add(baseBloc.sessionData.activities);
-    pageIdSink.add(baseBloc.sessionData.pageId);
+    _healthLvlController.add(_baseBloc.userData.healthLvl);
+    _wealthLvlController.add(_baseBloc.userData.wealthLvl);
+    _loveLvlController.add(_baseBloc.userData.loveLvl);
+    _happinessLvlController.add(_baseBloc.userData.happinessLvl);
+    timeFrameSink.add(_baseBloc.sessionData.graphTimeFrame);
+    activitiesSink.add(_baseBloc.sessionData.activities);
+    pageIdSink.add(_baseBloc.sessionData.pageId);
   }
 
   //Does not let user change to non-existent page
@@ -111,7 +112,7 @@ class HomeScreenBloc {
         pageId = HomeScreenValues.MAX_PAGE_ID;
         pageIdSink.add(pageId);
       }
-      baseBloc.sessionData.pageId = pageId;
+      _baseBloc.sessionData.pageId = pageId;
 
       return pageId;
     });

@@ -169,3 +169,48 @@ class ActivityButtonValues {
     throw "Unknown page ID";
   }
 }
+
+class ActivityListCardValues {
+  static const double LIST_PADDING_TOP = 50.0;
+  static const double LIST_PADDING_RIGHT = 20.0;
+  static const double LIST_PADDING_LEFT = 20.0;
+  static const double SPACE_BETWEEN_LIST_ITEMS = 8.0;
+
+  static Color getCardBackgroundColor(int difficulty) {
+    switch(difficulty) {
+      case Activity.EASY_DIFFICULTY: return Color.fromRGBO(104, 159, 56, 1.0);
+      case Activity.MEDIUM_DIFFICULTY: return Color.fromRGBO(255, 167, 38, 1.0);
+      case Activity.HARD_DIFFICULTY: return Color.fromRGBO(255, 122, 77, 1.0);
+      case Activity.CRAZY_DIFFICULTY: return Color.fromRGBO(33, 33, 33, 1.0);
+    }
+    throw "Such difficulty color does not exist";
+  }
+
+  static String getDifficultyText(int difficulty) {
+    switch(difficulty) {
+      case Activity.EASY_DIFFICULTY: return "Difficulty:\nEasy";
+      case Activity.MEDIUM_DIFFICULTY: return "Difficulty:\nMedium";
+      case Activity.HARD_DIFFICULTY: return "Difficulty:\nHard";
+      case Activity.CRAZY_DIFFICULTY: return "Difficulty:\nCrazy";
+    }
+    throw "Such difficulty text does not exist";
+  }
+
+  static Color getBackgroundColor(pageId) {
+    return HomeScreenValues.getBackgroundColor(pageId);
+  }
+
+  static TextStyle getCardDescriptionTextStyle(int difficulty) {
+    if (difficulty == Activity.CRAZY_DIFFICULTY) {
+      return TextStyle(color: Colors.grey);
+    }
+    return TextStyle(color: Colors.black);
+  }
+
+  static TextStyle getCardDifficultyTextStyle(int difficulty) {
+    if (difficulty == Activity.CRAZY_DIFFICULTY) {
+      return TextStyle(color: Colors.grey);
+    }
+    return TextStyle(color: Colors.black);
+  }
+}
