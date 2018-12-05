@@ -176,14 +176,37 @@ class ActivityListCardValues {
   static const double LIST_PADDING_LEFT = 20.0;
   static const double SPACE_BETWEEN_LIST_ITEMS = 8.0;
 
-  static Color getCardBackgroundColor(int difficulty) {
+  static const double FOOTER_SHADOW_RADIUS = 3.0;
+  static const double FOOTER_SPREAD_RADIUS = -1.0;
+
+  static const double FOOTER_PADDING_TOP = 10.0;
+  static const double FOOTER_PADDING_BOTTOM = 5.0;
+
+  static const double FOOTER_BUTTON_CORNER_CLIP = 10.0;
+
+  static const double TASK_CARD_ELEVATION = 3.0;
+
+  static Color getDifficultyColor(int difficulty, {int lightenValue}) {
+    Color difficultyColor;
     switch(difficulty) {
-      case Activity.EASY_DIFFICULTY: return Color.fromRGBO(104, 159, 56, 1.0);
-      case Activity.MEDIUM_DIFFICULTY: return Color.fromRGBO(255, 167, 38, 1.0);
-      case Activity.HARD_DIFFICULTY: return Color.fromRGBO(255, 122, 77, 1.0);
-      case Activity.CRAZY_DIFFICULTY: return Color.fromRGBO(33, 33, 33, 1.0);
+      case Activity.EASY_DIFFICULTY:
+        difficultyColor = Color.fromRGBO(104, 159, 56, 1.0);
+        break;
+      case Activity.MEDIUM_DIFFICULTY:
+        difficultyColor = Color.fromRGBO(255, 167, 38, 1.0);
+        break;
+      case Activity.HARD_DIFFICULTY:
+        difficultyColor = Color.fromRGBO(255, 122, 77, 1.0);
+        break;
+      case Activity.CRAZY_DIFFICULTY:
+        difficultyColor = Color.fromRGBO(33, 33, 33, 1.0);
+        break;
     }
-    throw "Such difficulty color does not exist";
+    if (difficultyColor == null)
+      throw "Such difficulty color does not exist";
+    if (lightenValue != null && difficulty != Activity.CRAZY_DIFFICULTY)
+      return ColorHelper.lighten(difficultyColor, lightenValue);
+    return difficultyColor;
   }
 
   static String getDifficultyText(int difficulty) {
@@ -208,6 +231,23 @@ class ActivityListCardValues {
   }
 
   static TextStyle getCardDifficultyTextStyle(int difficulty) {
+    if (difficulty == Activity.CRAZY_DIFFICULTY) {
+      return TextStyle(color: Colors.grey);
+    }
+    return TextStyle(color: Colors.black);
+  }
+
+  static String getTaskButtonText(int difficulty) {
+    switch (difficulty) {
+      case Activity.EASY_DIFFICULTY: return "Get easy task!";
+      case Activity.MEDIUM_DIFFICULTY: return "Get medium task!";
+      case Activity.HARD_DIFFICULTY: return "Get hard task!";
+      case Activity.CRAZY_DIFFICULTY: return "Get crazy task!";
+    }
+    throw "Such difficulty does not exist";
+  }
+
+  static getFooterButtonTextStyle(int difficulty) {
     if (difficulty == Activity.CRAZY_DIFFICULTY) {
       return TextStyle(color: Colors.grey);
     }

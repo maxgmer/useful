@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:useful_app/blocs/Providers.dart';
 import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/util/ColorHelper.dart';
 import 'package:useful_app/util/WidgetValues.dart';
 
 class ActivitiesScreen extends StatefulWidget {
@@ -35,8 +34,8 @@ class _ActivitiesScreenState extends State<StatefulWidget> {
                         return Padding(
                           padding: EdgeInsets.only(top: ActivityListCardValues.SPACE_BETWEEN_LIST_ITEMS),
                           child: Card(
-                            color: ActivityListCardValues.getCardBackgroundColor(activities.data[index].difficulty),
-                            elevation: 3.0,
+                            color: ActivityListCardValues.getDifficultyColor(activities.data[index].difficulty, lightenValue: 50),
+                            elevation: ActivityListCardValues.TASK_CARD_ELEVATION,
                             child: ListTile(
                               title: Text(activities.data[index].message,
                                   style: ActivityListCardValues.getCardDescriptionTextStyle(activities.data[index].difficulty)
@@ -56,8 +55,8 @@ class _ActivitiesScreenState extends State<StatefulWidget> {
                       color: ActivityListCardValues.getBackgroundColor(activitiesScreenBloc.sessionData.pageId),
                       boxShadow: [
                         BoxShadow(
-                            blurRadius: 3.0,
-                            spreadRadius: -1.0
+                            blurRadius: ActivityListCardValues.FOOTER_SHADOW_RADIUS,
+                            spreadRadius: ActivityListCardValues.FOOTER_SPREAD_RADIUS
                         )
                       ]
                     ),
@@ -65,40 +64,66 @@ class _ActivitiesScreenState extends State<StatefulWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 5.0),
+                          padding: EdgeInsets.only(
+                              top: ActivityListCardValues.FOOTER_PADDING_TOP,
+                              bottom: ActivityListCardValues.FOOTER_PADDING_BOTTOM
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               RaisedButton(
-                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                child: Text("Get easy task!"),
-                                color: ActivityListCardValues.getCardBackgroundColor(Activity.EASY_DIFFICULTY),
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(ActivityListCardValues.FOOTER_BUTTON_CORNER_CLIP))
+                                ),
+                                child: Text(
+                                    ActivityListCardValues.getTaskButtonText(Activity.EASY_DIFFICULTY),
+                                  style: ActivityListCardValues.getFooterButtonTextStyle(Activity.EASY_DIFFICULTY),
+                                ),
+                                color: ActivityListCardValues.getDifficultyColor(Activity.EASY_DIFFICULTY),
                                 onPressed: (){},
                               ),
                               RaisedButton(
-                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                child: Text("Get medium task!"),
-                                color: ActivityListCardValues.getCardBackgroundColor(Activity.MEDIUM_DIFFICULTY),
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(ActivityListCardValues.FOOTER_BUTTON_CORNER_CLIP)),
+                                ),
+                                child: Text(
+                                  ActivityListCardValues.getTaskButtonText(Activity.MEDIUM_DIFFICULTY),
+                                  style: ActivityListCardValues.getFooterButtonTextStyle(Activity.MEDIUM_DIFFICULTY),
+                                ),
+                                color: ActivityListCardValues.getDifficultyColor(Activity.MEDIUM_DIFFICULTY),
                                 onPressed: (){},
                               ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                          padding: EdgeInsets.only(
+                              top: ActivityListCardValues.FOOTER_PADDING_TOP,
+                              bottom: ActivityListCardValues.FOOTER_PADDING_BOTTOM
+                          ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               RaisedButton(
-                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                child: Text("Get hard task!"),
-                                color: ActivityListCardValues.getCardBackgroundColor(Activity.HARD_DIFFICULTY),
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(ActivityListCardValues.FOOTER_BUTTON_CORNER_CLIP))
+                                ),
+                                child: Text(
+                                  ActivityListCardValues.getTaskButtonText(Activity.HARD_DIFFICULTY),
+                                  style: ActivityListCardValues.getFooterButtonTextStyle(Activity.HARD_DIFFICULTY),
+                                ),
+                                color: ActivityListCardValues.getDifficultyColor(Activity.HARD_DIFFICULTY),
                                 onPressed: (){},
                               ),
                               RaisedButton(
-                                shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                child: Text("Get crazy task!"),
-                                color: ActivityListCardValues.getCardBackgroundColor(Activity.CRAZY_DIFFICULTY),
+                                shape: BeveledRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(ActivityListCardValues.FOOTER_BUTTON_CORNER_CLIP))
+                                ),
+                                child: Text(
+                                  ActivityListCardValues.getTaskButtonText(Activity.CRAZY_DIFFICULTY),
+                                  style: ActivityListCardValues.getFooterButtonTextStyle(Activity.CRAZY_DIFFICULTY),
+                                ),
+                                color: ActivityListCardValues.getDifficultyColor(Activity.CRAZY_DIFFICULTY),
                                 onPressed: (){},
                               ),
                             ],
