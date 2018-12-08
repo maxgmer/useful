@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 class Activity {
 
@@ -33,21 +33,27 @@ class Activity {
   //not in local, so always have to convert to local for displaying
   int _creationDate;
   get creationDate => _creationDate;
+
+  Activity.fromJson(Map<String, dynamic> json)
+      : _activityCompleted = json['activityCompleted'],
+        _difficulty = json['difficulty'],
+        _pageId = json['pageId'],
+        _message = json['message'];
+
+  Map<String, dynamic> toJson() => {
+    'pageId': _pageId,
+    'difficulty': _difficulty,
+    'message': _message,
+    'activityCompleted': _activityCompleted
+  };
 }
 class ActivityFactory {
-  static List<Activity> createActivity(List<Activity> activities, int pageId) {
-    var activity = Activity("Do 10 pushups!", pageId, Random().nextInt(4) + 1);
-    activity.activityCompleted = Random().nextBool();
+
+
+
+  static List<Activity> addActivity(List<Activity> activities, int pageId, int difficulty) {
+    var activity = Activity("Do 10 pushups!", pageId, difficulty);
     activities.add(activity);
-    var activity1 = Activity("Do 200 pullups!", pageId, Random().nextInt(4) + 1);
-    activity.activityCompleted = Random().nextBool();
-    activities.add(activity1);
-    var activity2 = Activity("Find a hobby which you would be ready to follow your whole life.", pageId, Random().nextInt(4) + 1);
-    activity.activityCompleted = Random().nextBool();
-    activities.add(activity2);
-    var activity3 = Activity("Go to a place of your interest, where there is interaction with people.", pageId, Random().nextInt(4) + 1);
-    activity.activityCompleted = Random().nextBool();
-    activities.add(activity3);
     return activities;
   }
 }

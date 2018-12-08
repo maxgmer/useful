@@ -75,7 +75,7 @@ class _HomeScreenState extends State<StatefulWidget> {
                                           (activity) => hasActivitiesForPage |= (activity.pageId == pageId.data && !activity.activityCompleted)
                                   );
                                   if (!hasActivitiesForPage) {
-                                    homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data));
+                                    homeScreenBloc.activitiesSink.add(ActivityFactory.addActivity(activities.data, pageId.data, Activity.EASY_DIFFICULTY));
                                   } else {
                                     Navigator.of(context).pushNamed(ActivitiesScreen.TAG);
                                   }
