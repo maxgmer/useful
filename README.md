@@ -1,4 +1,4 @@
-# useful_app
+# Project paused temporarily.
 
 An app which helps to improve your life.
 
