@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/HomeScreen/HomeScreenProvider.dart';
-import 'package:useful_app/blocs/HomeScreen/HomeScreenBloc.dart';
+import 'package:useful_app/blocs/Providers.dart';
 import 'package:useful_app/customWidgets/BreathingImage.dart';
-import 'dart:math';
-
 import 'package:useful_app/customWidgets/CustomFAB.dart';
 import 'package:useful_app/customWidgets/StatsGraph.dart';
-import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/Activity.dart';
 import 'package:useful_app/models/SessionDataModel.dart';
 import 'package:useful_app/util/ColorHelper.dart';
 import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/views/activities_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String TAG = "HomeScreen";
@@ -23,7 +20,7 @@ class _HomeScreenState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final homeScreenBloc = HomeScreenProvider.getBloc(context);
+    final homeScreenBloc = Providers.getHomeScreenBloc(context);
     return StreamBuilder<int>(
         stream: homeScreenBloc.pageId,
         initialData: homeScreenBloc.initialPageId,
@@ -66,13 +63,23 @@ class _HomeScreenState extends State<StatefulWidget> {
                           child: Center(
                               child: RaisedButton(
                                 child: Text(
-                                    ActivityButtonValues.getActivityButtonString(pageId.data),
+                                    ActivityButtonValues.getActivityButtonString(pageId.data, activities.data),
                                     style: TextStyle(fontSize: ActivityButtonValues.ACTIVITY_BUTTON_FONT_SIZE, fontWeight: FontWeight.w700)
                                 ),
                                 shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(ActivityButtonValues.ACTIVITY_BUTTON_CLIP_RADIUS))),
                                 color: HomeScreenValues.getPageAccentColor(pageId.data),
                                 splashColor: HomeScreenValues.getActivityButtonSplashColor(pageId.data),
-                                onPressed: () => homeScreenBloc.activitiesSink.add(ActivityFactory.createActivity(activities.data, pageId.data)),
+                                onPressed: () {
+                                  bool hasActivitiesForPage = false;
+                                  activities.data.forEach(
+                                          (activity) => hasActivitiesForPage |= (activity.pageId == pageId.data && !activity.activityCompleted)
+                                  );
+                                  if (!hasActivitiesForPage) {
+                                    homeScreenBloc.activitiesSink.add(ActivityFactory.addActivity(activities.data, pageId.data, Activity.EASY_DIFFICULTY));
+                                  } else {
+                                    Navigator.of(context).pushNamed(ActivitiesScreen.TAG);
+                                  }
+                                },
                               )
                           ),
                         ),
