@@ -1,6 +1,6 @@
 # Project paused temporarily.
 
-An app which helps to improve your life.
+The framework has been a breeze to take up, so I pause this one to move on to my personal Flutter projects.
 
 ## Getting Started
 
