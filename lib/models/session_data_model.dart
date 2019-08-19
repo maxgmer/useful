@@ -1,5 +1,5 @@
-import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/util/DateHelper.dart';
+import 'package:useful_app/models/activity.dart';
+import 'package:useful_app/util/date_helper.dart';
 
 class SessionDataModel {
   SessionDataModel();
@@ -12,7 +12,7 @@ class SessionDataModel {
   int get pageId => _pageId;
   set pageId(pageId) => _pageId = pageId;
 
-  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.WEEK;
+  StatsGraphTimeFrame _graphTimeFrame = StatsGraphTimeFrame.week;
   StatsGraphTimeFrame get graphTimeFrame => _graphTimeFrame;
   set graphTimeFrame(graphTimeFrame) => _graphTimeFrame;
 }
@@ -27,16 +27,16 @@ class StatsGraphTimeFrameHelper {
 
   static List<String> getStrings(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK: return ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
-      case StatsGraphTimeFrame.MONTH: return ["01", "07", "14", "21", "28"];
-      case StatsGraphTimeFrame.YEAR: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      case StatsGraphTimeFrame.week: return ["Mon", "Tues", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      case StatsGraphTimeFrame.month: return ["01", "07", "14", "21", "28"];
+      case StatsGraphTimeFrame.year: return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     }
     throw "Such timeframe does not exist!";
   }
 
   static DateTime getTimeFrameBeginning(StatsGraphTimeFrame timeFrame) {
     switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK:
+      case StatsGraphTimeFrame.week:
         DateTime beginningOfTheWeek = DateTime.now();
         beginningOfTheWeek = beginningOfTheWeek.toLocal();
         //reset time to 00:00
@@ -46,7 +46,7 @@ class StatsGraphTimeFrameHelper {
         beginningOfTheWeek = beginningOfTheWeek.subtract(
             Duration(days: beginningOfTheWeek.weekday - 1));
         return beginningOfTheWeek;
-      case StatsGraphTimeFrame.MONTH:
+      case StatsGraphTimeFrame.month:
         DateTime beginningOfTheMonth = DateTime.now();
         beginningOfTheMonth = beginningOfTheMonth.toLocal();
         //reset time to 00:00
@@ -56,7 +56,7 @@ class StatsGraphTimeFrameHelper {
         beginningOfTheMonth = beginningOfTheMonth.subtract(
             Duration(days: beginningOfTheMonth.day - 1));
         return beginningOfTheMonth;
-      case StatsGraphTimeFrame.YEAR:
+      case StatsGraphTimeFrame.year:
         DateTime beginningOfTheYear = DateTime.now();
         beginningOfTheYear = beginningOfTheYear.toLocal();
         //reset time to 00:00
@@ -78,7 +78,7 @@ class StatsGraphTimeFrameHelper {
   static int getBestActivitiesNumber(StatsGraphTimeFrame timeFrame,
       List<Activity> currentTimeFrameActivities, DateTime beginningOfTheTimeFrame) {
     switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK:
+      case StatsGraphTimeFrame.week:
         int maxActivitiesInSegment = 0;
         bool lastCycleIteration = false;
         while (true) {
@@ -101,7 +101,7 @@ class StatsGraphTimeFrameHelper {
           if (beginningOfTheTimeFrame.weekday == 7) lastCycleIteration = true;
         }
         break;
-      case StatsGraphTimeFrame.MONTH:
+      case StatsGraphTimeFrame.month:
         int maxActivitiesInSegment = 0;
         int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
         bool lastCycleIteration = false;
@@ -125,7 +125,7 @@ class StatsGraphTimeFrameHelper {
           if (beginningOfTheTimeFrame.day == daysInMonth) lastCycleIteration = true;
         }
         break;
-      case StatsGraphTimeFrame.YEAR:
+      case StatsGraphTimeFrame.year:
         int maxActivitiesInSegment = 0;
         bool lastCycleIteration = false;
         while (true) {
@@ -155,7 +155,7 @@ class StatsGraphTimeFrameHelper {
   //1 segment = 1 day for week and month, 10 days for year
   static getNumberOfActivitiesPerSegment(List<Activity> activities, StatsGraphTimeFrame timeFrame, DateTime beginningOfTheTimeFrame) {
     switch(timeFrame) {
-      case StatsGraphTimeFrame.WEEK:
+      case StatsGraphTimeFrame.week:
         List<int> numberOfActivitiesPerSegment = List<int>();
         for (int i = 0; i < 7; i++) {
           int activitiesInSegment = 0;
@@ -172,7 +172,7 @@ class StatsGraphTimeFrameHelper {
               Duration(days: 1));
         }
         return numberOfActivitiesPerSegment;
-      case StatsGraphTimeFrame.MONTH:
+      case StatsGraphTimeFrame.month:
         List<int> numberOfActivitiesPerSegment = List<int>();
         int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
         for (int i = 0; i < daysInMonth; i++) {
@@ -190,7 +190,7 @@ class StatsGraphTimeFrameHelper {
               Duration(days: 1));
         }
         return numberOfActivitiesPerSegment;
-      case StatsGraphTimeFrame.YEAR:
+      case StatsGraphTimeFrame.year:
         List<int> numberOfActivitiesPerSegment = List<int>();
 
         for (int i = 0; i < 12; i++) {
@@ -215,5 +215,5 @@ class StatsGraphTimeFrameHelper {
 }
 
 enum StatsGraphTimeFrame{
-  WEEK, MONTH, YEAR
+  week, month, year
 }

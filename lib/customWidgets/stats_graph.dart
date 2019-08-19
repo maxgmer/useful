@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/models/SessionDataModel.dart';
-import 'package:useful_app/util/DateHelper.dart';
-import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/models/activity.dart';
+import 'package:useful_app/models/session_data_model.dart';
+import 'package:useful_app/util/date_helper.dart';
+import 'package:useful_app/util/widget_values.dart';
 
 class StatsGraph extends StatefulWidget {
 
@@ -33,7 +33,7 @@ class _StatsGraphState extends State<StatsGraph> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new CustomPaint(
-      size: Size(0.0, StatsGraphValues.SIZE),
+      size: Size(0.0, StatsGraphValues.size),
       painter: _StatsGraphPainter(activities, pageId, timeFrame, graphMarkupColor, graphLineColor, graphCircleColor),
     );
   }
@@ -73,7 +73,7 @@ class _StatsGraphPainter extends CustomPainter {
     int fifthOfGraphValueHeight = (graphValueHeight / 5).round();
 
     Paint paint = new Paint()
-        ..strokeWidth = StatsGraphValues.MARKUP_STROKE_WIDTH
+        ..strokeWidth = StatsGraphValues.markupStrokeWidth
         ..strokeCap = StrokeCap.round
         ..style = PaintingStyle.fill;
 
@@ -110,10 +110,10 @@ class _StatsGraphPainter extends CustomPainter {
   void _drawHeadline(Canvas canvas, Paint paint, Size size) {
     TextPainter text = _getTextPainter(
         StatsGraphValues.getGraphHeadlineString(timeFrame),
-        StatsGraphValues.FONT_SIZE_HEADLINE);
+        StatsGraphValues.fontSizeHeadline);
 
     text.paint(canvas, Offset(
-        (StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + size.width) / 2 -
+        (StatsGraphValues.spaceForNumbersSize + size.width) / 2 -
             text.width / 2, 0.0));
   }
 
@@ -121,56 +121,56 @@ class _StatsGraphPainter extends CustomPainter {
     paint.color = _graphMarkupColor;
     double fifthOfHeight = (size.height - (_HEIGHT_SPACE_FOR_TEXT * 2 /*2 because for bottom and top*/)) / 5;
     for (int i = 0, graphValueMarkupBase = 5; i <= 5; i++, graphValueMarkupBase--) {
-      canvas.drawLine(Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE, _HEIGHT_SPACE_FOR_TEXT + (i * fifthOfHeight)),
+      canvas.drawLine(Offset(StatsGraphValues.spaceForNumbersSize, _HEIGHT_SPACE_FOR_TEXT + (i * fifthOfHeight)),
           Offset(size.width, _HEIGHT_SPACE_FOR_TEXT + (i * fifthOfHeight)), paint);
 
       TextPainter text = _getTextPainter((graphValueMarkupBase * gapHeight).toString(),
-          StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
+          StatsGraphValues.fontSizeVerticalMarkupText);
       text.paint(canvas,  Offset(0.0, 10.0 + (i * fifthOfHeight)));
     }
   }
 
   void _drawVerticalMarkupAndValues(Canvas canvas, Paint paint, Size size, DateTime beginningOfTheTimeFrame) {
     List<String> dayNames = StatsGraphTimeFrameHelper.getStrings(timeFrame);
-    if (timeFrame != StatsGraphTimeFrame.MONTH) {
-      double verticalMarkupLineGapWidth = (size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE) / (dayNames.length - 1);
+    if (timeFrame != StatsGraphTimeFrame.month) {
+      double verticalMarkupLineGapWidth = (size.width - StatsGraphValues.spaceForNumbersSize) / (dayNames.length - 1);
       for (int i = 0; i < dayNames.length; i++) {
         canvas.drawLine(
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * verticalMarkupLineGapWidth), _HEIGHT_SPACE_FOR_TEXT),
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * verticalMarkupLineGapWidth),
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * verticalMarkupLineGapWidth), _HEIGHT_SPACE_FOR_TEXT),
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * verticalMarkupLineGapWidth),
                 size.height - _HEIGHT_SPACE_FOR_TEXT), paint);
 
-        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
+        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.fontSizeVerticalMarkupText);
         text.paint(canvas,
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * verticalMarkupLineGapWidth) - text.width / 2,
-                size.height - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE / 2));
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * verticalMarkupLineGapWidth) - text.width / 2,
+                size.height - StatsGraphValues.spaceForNumbersSize / 2));
       }
     } else {
       int daysInMonth = DateHelper.getDaysInCurrentMonth(beginningOfTheTimeFrame);
-      double graphDayWidth = (size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE) / (daysInMonth - 1);
+      double graphDayWidth = (size.width - StatsGraphValues.spaceForNumbersSize) / (daysInMonth - 1);
       double graphWeekWidth = graphDayWidth * 7;
       for (int i = 0; i < dayNames.length; i++) {
         canvas.drawLine(
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * graphWeekWidth), _HEIGHT_SPACE_FOR_TEXT),
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * graphWeekWidth),
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * graphWeekWidth), _HEIGHT_SPACE_FOR_TEXT),
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * graphWeekWidth),
                 size.height - _HEIGHT_SPACE_FOR_TEXT), paint);
 
-        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.FONT_SIZE_VERTICAL_MARKUP_TEXT);
+        TextPainter text = _getTextPainter(dayNames[i], StatsGraphValues.fontSizeVerticalMarkupText);
         text.paint(canvas,
-            Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * graphWeekWidth) - text.width / 2,
-                size.height - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE / 2));
+            Offset(StatsGraphValues.spaceForNumbersSize + (i * graphWeekWidth) - text.width / 2,
+                size.height - StatsGraphValues.spaceForNumbersSize / 2));
       }
     }
   }
 
   void _drawGraph(Canvas canvas, Paint paint, Size size, List<Activity> completedCurrentTimeFrameActivities, int graphValueHeight) {
-    paint.strokeWidth = StatsGraphValues.GRAPH_LINE_STROKE_WIDTH;
+    paint.strokeWidth = StatsGraphValues.graphLineStrokeWidth;
 
     DateTime beginningOfTheTimeFrame = StatsGraphTimeFrameHelper.getTimeFrameBeginning(timeFrame);
     List<int> activitiesPerSegment = StatsGraphTimeFrameHelper.getNumberOfActivitiesPerSegment(completedCurrentTimeFrameActivities, timeFrame, beginningOfTheTimeFrame);
 
     double graphHeight = size.height - _HEIGHT_SPACE_FOR_TEXT * 2;
-    double graphWidth = size.width - StatsGraphValues.SPACE_FOR_NUMBERS_SIZE;
+    double graphWidth = size.width - StatsGraphValues.spaceForNumbersSize;
     double onePercentOfHeight = graphHeight / 100;
     double segmentWidth = graphWidth / (activitiesPerSegment.length - 1);
     activitiesPerSegment = activitiesPerSegment.reversed.toList();
@@ -186,19 +186,19 @@ class _StatsGraphPainter extends CustomPainter {
       double currentPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i])) / graphValueHeight * 100;
       double nextPercentOfHeight = (graphValueHeight - (graphValueHeight - activitiesPerSegment[i + 1])) / graphValueHeight * 100;
       canvas.drawLine(
-          Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * segmentWidth),
+          Offset(StatsGraphValues.spaceForNumbersSize + (i * segmentWidth),
               graphHeight - (onePercentOfHeight * currentPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT),
-          Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + ((i + 1) * segmentWidth),
+          Offset(StatsGraphValues.spaceForNumbersSize + ((i + 1) * segmentWidth),
               graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT),
           paint);
 
       paint.color = _graphCircleColor;
       canvas.drawCircle(
-          Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + (i * segmentWidth),
-              graphHeight - (onePercentOfHeight * currentPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.GRAPH_CIRCLE_RADIUS, paint);
+          Offset(StatsGraphValues.spaceForNumbersSize + (i * segmentWidth),
+              graphHeight - (onePercentOfHeight * currentPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.graphCircleRadius, paint);
       canvas.drawCircle(
-          Offset(StatsGraphValues.SPACE_FOR_NUMBERS_SIZE + ((i + 1) * segmentWidth),
-              graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.GRAPH_CIRCLE_RADIUS, paint);
+          Offset(StatsGraphValues.spaceForNumbersSize + ((i + 1) * segmentWidth),
+              graphHeight - (onePercentOfHeight * nextPercentOfHeight) + _HEIGHT_SPACE_FOR_TEXT), StatsGraphValues.graphCircleRadius, paint);
     }
   }
 }

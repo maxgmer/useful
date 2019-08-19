@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/Providers.dart';
+import 'package:useful_app/blocs/providers.dart';
 import 'package:useful_app/views/activities_screen.dart';
 import 'package:useful_app/views/home_screen.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         home: new HomeScreen(),
         routes: <String, WidgetBuilder> {
           HomeScreen.TAG : (BuildContext context) => HomeScreen(),
-          ActivitiesScreen.TAG : (BuildContext context) => ActivitiesScreen()
+          ActivitiesScreen.tag : (BuildContext context) => ActivitiesScreen()
         },
       ),
     );

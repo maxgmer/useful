@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:useful_app/blocs/ActivitiesScreenBloc.dart';
-import 'package:useful_app/blocs/BaseBloc.dart';
-import 'package:useful_app/blocs/HomeScreenBloc.dart';
+import 'package:useful_app/blocs/activities_screen_bloc.dart';
+import 'package:useful_app/blocs/base_bloc.dart';
+import 'package:useful_app/blocs/home_screen_bloc.dart';
 
 class Providers extends InheritedWidget {
   final HomeScreenBloc homeScreenBloc;

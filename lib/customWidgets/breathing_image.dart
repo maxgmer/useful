@@ -1,6 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/util/widget_values.dart';
 
 class BreathingImage extends StatefulWidget {
 
@@ -27,7 +27,7 @@ class _BreathingImageState extends State<BreathingImage> with SingleTickerProvid
   initState() {
     super.initState();
     controller = AnimationController(
-        duration: Duration(milliseconds: BreathingImageValues.ANIMATION_DURATION), vsync: this);
+        duration: Duration(milliseconds: BreathingImageValues.animationDuration), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.linear)
       ..addListener(() {
         setState(() {
@@ -45,7 +45,7 @@ class _BreathingImageState extends State<BreathingImage> with SingleTickerProvid
   Widget build(BuildContext context) {
     return Image(
       image: currentImg,
-      height: size + (BreathingImageValues.FULL_LUNGS_SIZE_ADDITION * animation.value),
+      height: size + (BreathingImageValues.fullLungsSizeAddition * animation.value),
       fit: BoxFit.fitHeight
     );
   }

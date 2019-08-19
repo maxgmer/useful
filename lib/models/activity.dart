@@ -6,19 +6,19 @@ class Activity {
     _creationDate = DateTime.now().millisecondsSinceEpoch;
     _activityCompleted = false;
 
-    if (_difficulty != EASY_DIFFICULTY &&
-    _difficulty != MEDIUM_DIFFICULTY &&
-    _difficulty != HARD_DIFFICULTY &&
-    _difficulty != CRAZY_DIFFICULTY) throw "Such activity difficulty does not exist";
+    if (_difficulty != easyDifficulty &&
+    _difficulty != mediumDifficulty &&
+    _difficulty != hardDifficulty &&
+    _difficulty != crazyDifficulty) throw "Such activity difficulty does not exist";
   }
 
   final int _difficulty;
   get difficulty => _difficulty;
 
-  static const EASY_DIFFICULTY = 1;
-  static const MEDIUM_DIFFICULTY = 2;
-  static const HARD_DIFFICULTY = 3;
-  static const CRAZY_DIFFICULTY = 4;
+  static const easyDifficulty = 1;
+  static const mediumDifficulty = 2;
+  static const hardDifficulty = 3;
+  static const crazyDifficulty = 4;
 
   final int _pageId;
   get pageId => _pageId;
@@ -48,9 +48,6 @@ class Activity {
   };
 }
 class ActivityFactory {
-
-
-
   static List<Activity> addActivity(List<Activity> activities, int pageId, int difficulty) {
     var activity = Activity("Do 10 pushups!", pageId, difficulty);
     activities.add(activity);

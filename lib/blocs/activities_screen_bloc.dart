@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:useful_app/blocs/BaseBloc.dart';
-import 'package:useful_app/models/Activity.dart';
+import 'package:useful_app/blocs/base_bloc.dart';
+import 'package:useful_app/models/activity.dart';
 
 class ActivitiesScreenBloc {
   final BaseBloc _baseBloc;

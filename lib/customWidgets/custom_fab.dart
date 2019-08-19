@@ -1,6 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/util/widget_values.dart';
 
 class CustomFloatingActionButton extends StatefulWidget {
 
@@ -50,7 +50,7 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
     super.initState();
     _initNext();
     controller = AnimationController(
-        duration: Duration(milliseconds: CustomFABValues.ANIMATION_DURATION), vsync: this);
+        duration: Duration(milliseconds: CustomFABValues.animationDuration), vsync: this);
     animation = CurvedAnimation(parent: controller, curve: Curves.easeOut)
       ..addListener(() {
         setState(() {
@@ -80,19 +80,19 @@ class _CustomFABState extends State<CustomFloatingActionButton> with SingleTicke
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          right: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_PADDING_RIGHT) :
-      ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_PADDING_RIGHT)) + CustomFABValues.MIN_PADDING_RIGHT,
-          bottom: (_wasPressed ? (animation.value * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM) :
-          ((1 - animation.value) * CustomFABValues.INTERPOLATABLE_PADDING_BOTTOM)) + CustomFABValues.MIN_PADDING_BOTTOM),
+          right: (_wasPressed ? (animation.value * CustomFABValues.interpolatablePaddingRight) :
+      ((1 - animation.value) * CustomFABValues.interpolatablePaddingRight)) + CustomFABValues.minPaddingRight,
+          bottom: (_wasPressed ? (animation.value * CustomFABValues.interpolatablePaddingBottom) :
+          ((1 - animation.value) * CustomFABValues.interpolatablePaddingBottom)) + CustomFABValues.minPaddingBottom),
       child: RaisedButton(
         color: HomeScreenValues.getFABColor(animation.value, pageId),
         splashColor: Color.fromRGBO(0, 0, 0, 0.0), //no splash color
         padding: EdgeInsets.only(
-            top: CustomFABValues.SIZE,
-            bottom: CustomFABValues.SIZE,
-            right: CustomFABValues.SIZE / 2,
-            left: CustomFABValues.SIZE / 2),
-        elevation: animation.value * CustomFABValues.MAX_ELEVATION,
+            top: CustomFABValues.size,
+            bottom: CustomFABValues.size,
+            right: CustomFABValues.size / 2,
+            left: CustomFABValues.size / 2),
+        elevation: animation.value * CustomFABValues.maxElevation,
         shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.elliptical(_topLeftX, _topLeftY),

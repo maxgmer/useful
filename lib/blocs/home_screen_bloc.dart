@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:rxdart/subjects.dart';
-import 'package:useful_app/blocs/BaseBloc.dart';
-import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/models/SessionDataModel.dart';
-import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/blocs/base_bloc.dart';
+import 'package:useful_app/models/activity.dart';
+import 'package:useful_app/models/session_data_model.dart';
+import 'package:useful_app/util/widget_values.dart';
 
 
 class HomeScreenBloc {
   final int initialPageId = 0;
   final List<Activity> initialActivities = List<Activity>();
   final initialLvlHeaderText = "Health lvl: loading..";
-  final initialTimeFrame = StatsGraphTimeFrame.WEEK;
+  final initialTimeFrame = StatsGraphTimeFrame.week;
 
   final BaseBloc _baseBloc;
 
@@ -104,12 +104,12 @@ class HomeScreenBloc {
 
   Stream<int> _wrappedPageIdStream() {
     return _pageIdController.stream.map((pageId) {
-      if (pageId > HomeScreenValues.MAX_PAGE_ID) {
+      if (pageId > HomeScreenValues.maxPageId) {
         pageId = 0;
         pageIdSink.add(pageId);
       }
       if (pageId < 0) {
-        pageId = HomeScreenValues.MAX_PAGE_ID;
+        pageId = HomeScreenValues.maxPageId;
         pageIdSink.add(pageId);
       }
       _baseBloc.sessionData.pageId = pageId;

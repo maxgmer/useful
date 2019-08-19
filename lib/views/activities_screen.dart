@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:useful_app/blocs/Providers.dart';
-import 'package:useful_app/models/Activity.dart';
-import 'package:useful_app/util/WidgetValues.dart';
+import 'package:useful_app/blocs/providers.dart';
+import 'package:useful_app/util/widget_values.dart';
 
 class ActivitiesScreen extends StatefulWidget {
-  static const String TAG = "ActivitiesScreen";
+  static const String tag = "ActivitiesScreen";
 
   @override
   State<StatefulWidget> createState() => new _ActivitiesScreenState();
@@ -26,16 +25,16 @@ class _ActivitiesScreenState extends State<StatefulWidget> {
                   Expanded(
                     child: ListView.builder(
                       padding: EdgeInsets.only(
-                          top: ActivityListCardValues.LIST_PADDING_TOP,
-                          left: ActivityListCardValues.LIST_PADDING_LEFT,
-                          right: ActivityListCardValues.LIST_PADDING_RIGHT),
+                          top: ActivityListCardValues.listPaddingTop,
+                          left: ActivityListCardValues.listPaddingLeft,
+                          right: ActivityListCardValues.listPaddingRight),
                       itemCount: activities.data.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: EdgeInsets.only(top: ActivityListCardValues.SPACE_BETWEEN_LIST_ITEMS),
+                          padding: EdgeInsets.only(top: ActivityListCardValues.spaceBetweenListItems),
                           child: Card(
                             color: ActivityListCardValues.getDifficultyColor(activities.data[index].difficulty, lightenValue: 50),
-                            elevation: ActivityListCardValues.TASK_CARD_ELEVATION,
+                            elevation: ActivityListCardValues.taskCardElevation,
                             child: ListTile(
                               title: Text(activities.data[index].message,
                                   style: ActivityListCardValues.getCardDescriptionTextStyle(activities.data[index].difficulty)
